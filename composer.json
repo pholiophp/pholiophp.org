@@ -1,0 +1,34 @@
+{
+    "authors": [
+        {
+            "name": "Chad Gray",
+            "email": "chadwickgray@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "license": "MIT",
+    "extra": {
+        "heroku": {
+            "newrelic": true,
+            "php-config": [
+                "date.timezone=America/New_York",
+                "always_populate_raw_post_data=-1"
+            ]
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "ext-xsl": "*",
+        "slim/slim": "^3.0",
+        "dominionenterprises/filter": "^2.0",
+        "dominionenterprises/util": "^2.0",
+        "dominionenterprises/mongo-queue-php": "^2.0",
+        "slim/twig-view": "^2.1"
+    },
+    "autoload": {
+        "psr-4":{"Pholio\\" : "src"}
+    },
+    "autoload-dev": {
+        "psr-4":{"Pholio\\" : "tests"}
+    }
+}
