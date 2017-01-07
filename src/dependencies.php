@@ -18,6 +18,6 @@ $container['xsltProcessor'] = function ($c) {
     $document->load(__DIR__ . '/../structure.xsl');
     $xsltProcessor = new XSLTProcessor();
 	$xsltProcessor->registerPHPFunctions();
-	$xsltProcessor->importStyleSheet($domDocument);
+	$xsltProcessor->importStyleSheet($document);
     return $xsltProcessor;
 };
