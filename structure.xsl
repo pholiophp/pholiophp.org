@@ -127,12 +127,12 @@
                             <h4>Methods</h4>
                             <dl>
                                 <xsl:for-each select="method">
-                                    <dt><pre><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::signature', current())" /></pre></dt>
+                                    <dt><pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre></dt>
                                     <dd>
                                         <p><xsl:value-of select="docblock/description" /></p>
                                         <div>
                                             <div>
-                                                <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::decode', docblock/long-description)" disable-output-escaping="yes" /></p>
+                                                <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::decode', docblock/long-description)" disable-output-escaping="yes" /></p>
                                             </div>
                                             <xsl:if test="count(docblock/tag[@name='param']) &gt; 0">
                                                 <h5>Parameters</h5>
@@ -140,7 +140,7 @@
                                                     <div>
                                                         <h4><xsl:value-of select="@variable" /></h4>
                                                         <code><xsl:value-of select="@type" /></code>
-                                                        <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::stripTags', @description)" /></p>
+                                                        <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></p>
                                                     </div>
                                                 </xsl:for-each>
                                             </xsl:if>
@@ -157,7 +157,7 @@
                                                 <xsl:for-each select="docblock/tag[@name='throws']">
                                                     <div>
                                                         <code><xsl:value-of select="type" /></code>
-                                                        <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::stripTags', @description)" /></p>
+                                                        <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></p>
                                                     </div>
                                                 </xsl:for-each>
                                             </xsl:if>
@@ -208,12 +208,12 @@
                             <h4>Methods</h4>
                             <dl>
                                 <xsl:for-each select="method">
-                                    <dt><pre><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::signature', current())" /></pre></dt>
+                                    <dt><pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre></dt>
                                     <dd>
                                         <p><xsl:value-of select="docblock/description" /></p>
                                         <div>
                                             <div>
-                                                <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::decode', docblock/long-description)" disable-output-escaping="yes" /></p>
+                                                <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::decode', docblock/long-description)" disable-output-escaping="yes" /></p>
                                             </div>
                                             <xsl:if test="count(docblock/tag[@name='param']) &gt; 0">
                                                 <h5>Parameters</h5>
@@ -221,7 +221,7 @@
                                                     <div>
                                                         <h4><xsl:value-of select="@variable" /></h4>
                                                         <code><xsl:value-of select="@type" /></code>
-                                                        <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::stripTags', @description)" /></p>
+                                                        <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></p>
                                                     </div>
                                                 </xsl:for-each>
                                             </xsl:if>
@@ -238,7 +238,7 @@
                                                 <xsl:for-each select="docblock/tag[@name='throws']">
                                                     <div>
                                                         <code><xsl:value-of select="type" /></code>
-                                                        <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::stripTags', @description)" /></p>
+                                                        <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></p>
                                                     </div>
                                                 </xsl:for-each>
                                             </xsl:if>
@@ -265,12 +265,12 @@
                             <h4>Methods</h4>
                             <dl>
                                 <xsl:for-each select="method">
-                                    <dt><pre><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::signature', current())" /></pre></dt>
+                                    <dt><pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre></dt>
                                     <dd>
                                         <p><xsl:value-of select="docblock/description" /></p>
                                         <div>
                                             <div>
-                                                <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::decode', docblock/long-description)" disable-output-escaping="yes" /></p>
+                                                <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::decode', docblock/long-description)" disable-output-escaping="yes" /></p>
                                             </div>
                                             <xsl:if test="count(docblock/tag[@name='param']) &gt; 0">
                                                 <h5>Parameters</h5>
@@ -278,7 +278,7 @@
                                                     <div>
                                                         <h4><xsl:value-of select="@variable" /></h4>
                                                         <code><xsl:value-of select="@type" /></code>
-                                                        <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::stripTags', @description)" /></p>
+                                                        <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></p>
                                                     </div>
                                                 </xsl:for-each>
                                             </xsl:if>
@@ -295,7 +295,7 @@
                                                 <xsl:for-each select="docblock/tag[@name='throws']">
                                                     <div>
                                                         <code><xsl:value-of select="type" /></code>
-                                                        <p><xsl:value-of select="php:function('\Chadicus\Pholio\Util\Xslt::stripTags', @description)" /></p>
+                                                        <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></p>
                                                     </div>
                                                 </xsl:for-each>
                                             </xsl:if>
