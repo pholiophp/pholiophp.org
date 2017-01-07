@@ -66,8 +66,6 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     $xmlDoc = new \DOMDocument();
     $xmlDoc->loadXml($document['xml']);
 
-    error_log($xmlDoc->saveXml());
-
     return $this->renderer->render(
         $response,
         'library.html',
