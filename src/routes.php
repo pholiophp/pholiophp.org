@@ -3,7 +3,7 @@
 use DominionEnterprises\Util;
 
 $app->get('/', function ($request, $response) {
-    return $this->renderer->render($response, 'index.phtml', ['title' => 'Pholio - The PHP Document Archive']);
+    return $this->renderer->render($response, 'index.html', ['title' => 'Pholio - The PHP Document Archive']);
 });
 
 $app->post('/hook', function ($request, $response, $arguments) {
