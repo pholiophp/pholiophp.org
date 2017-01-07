@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="wrap">
+        <section class="wrapper">
+            <section class="container content" role="main">
+                <div class="row">
+                    <div class="col-xs-12 library">
+                        <div class="library-header">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h2 class="title"><a href="/{{ owner|e }}">{{ owner }}</a>/{{ package }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                {{ phpdoc|raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+{% endblock %}

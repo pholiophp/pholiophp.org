@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="wrap">
+        <section class="wrapper">
+            <section class="container content" role="main">
+                <h3>Libraries from {{ owner|e }}</h3>
+                <ul class="libraries list-unstyled">
+                    {% for key,library in libraries %}
+                        <li data-url="{{ library.owner|e }}/{{ library.package| e}}" class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-sm-9 col-lg-10">
+                                        <h4 class="font-bold">
+                                            <a href="/{{ library.owner|e }}/{{ library.package|e }}">{{ library.owner|e }}/{{ library.package }}</a>
+                                        </h4>
+                                        <p>{{ library.description|e }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </section>
+    </section>
+{% endblock %}
