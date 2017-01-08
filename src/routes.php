@@ -54,7 +54,7 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     $library = Util\Arrays::get($arguments, 'repos');
     $version = Util\Arrays::get($arguments, 'version', 'dev-master');
 
-    $id = "{$owner}-{$library}-{$version}";
+    $id = "{$owner}-{$library}",
 
     $document = Util::ensureNot(
         null,
@@ -64,7 +64,7 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     );
 
     $xmlDoc = new \DOMDocument();
-    $xmlDoc->loadXml($document['xml']);
+    $xmlDoc->loadXml($document[$version]);
 
     return $this->renderer->render(
         $response,
