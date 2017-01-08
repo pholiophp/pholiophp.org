@@ -69,12 +69,7 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     return $this->renderer->render(
         $response,
         'library.html',
-        [
-            'phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc),
-            'title' => "{$owner}/{$library}",
-            'owner' => $document['owner'],
-            'package' => $document['package'],
-        ]
+        $document->getArrayCopy() + ['phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc)]
     );
 });
 

@@ -4,19 +4,32 @@
         <section class="wrapper">
             <section class="container content" role="main">
                 <div class="row">
-                    <div class="col-xs-12 library">
-                        <div class="library-header">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h2 class="title"><a href="/{{ owner|e }}">{{ owner }}</a>/{{ package }}</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                {{ phpdoc|raw }}
-                            </div>
-                        </div>
+                    <div class="col-md-8 library">
+                        <h2 class="title"><a href="/{{ owner|e }}">{{ owner }}</a>/{{ package }}</h2>
+                    </div>
+                    <div class="col-md-4">
+						<p class="maintainers">
+							<a href="/{{ owner|e }}">
+							<img width="48" height="48" title="{{ owner }}" src="{{ avatar }}"></a>
+                        </p>
+                        <p class="canonical">
+                        	<a href="{{ source }}" title="Canonical Repository URL">{{ source }}</a>
+                        </p>
+
+                        <p><span><a href="{{ source }}/issues">Open Issues</a>: {{ issues }}</span></p>
+                        <p><span><a href="{{ source }}/stargazers">Stars</a>: {{ stars }}</span></p>
+                        <p><span><a href="{{ source }}/watchers">Watchers</a>: {{ watchers }}</span></p>
+                        <p><span><a href="{{ source }}/network">Forks</a>: {{ forks }}</span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ phpdoc|raw }}
+                    </div>
+                    <div class="col-md-4">
+						{% for tag in tags %}
+                        	<p><span><a href="/{{ owner|e }}/{{ package|e }}/{{ tag|e }}">{{ tag }}</a></span></p>
+						{% endfor %}
                     </div>
                 </div>
             </section>
