@@ -54,7 +54,7 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     $library = Util\Arrays::get($arguments, 'repos');
     $version = Util\Arrays::get($arguments, 'version', 'dev-master');
 
-    $id = "{$owner}-{$library}",
+    $id = "{$owner}-{$library}";
 
     $document = Util::ensureNot(
         null,
