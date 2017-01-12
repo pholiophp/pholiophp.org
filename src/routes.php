@@ -3,7 +3,7 @@
 use DominionEnterprises\Util;
 
 $app->get('/', function ($request, $response) {
-    return $this->renderer->render($response, 'index.phtml', ['title' => 'Pholio - The PHP Document Archive']);
+    return $this->renderer->render($response, 'index.html', ['title' => 'Pholio - The PHP Document Archive']);
 });
 
 $app->post('/hook', function ($request, $response, $arguments) {
@@ -54,7 +54,7 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     $library = Util\Arrays::get($arguments, 'repos');
     $version = Util\Arrays::get($arguments, 'version', 'dev-master');
 
-    $id = "{$owner}-{$library}-{$version}";
+    $id = "{$owner}-{$library}";
 
     $document = Util::ensureNot(
         null,
@@ -64,17 +64,12 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     );
 
     $xmlDoc = new \DOMDocument();
-    $xmlDoc->loadXml($document['xml']);
+    $xmlDoc->loadXml($document[$version]);
 
     return $this->renderer->render(
         $response,
         'library.html',
-        [
-            'phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc),
-            'title' => "{$owner}/{$library}",
-            'owner' => $document['owner'],
-            'package' => $document['package'],
-        ]
+        $document->getArrayCopy() + ['phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc)]
     );
 });
 

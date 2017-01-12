@@ -13,11 +13,11 @@ $container['mongodb'] = function ($c) {
     return (new \MongoDB\Client($settings['server']))->selectDatabase($settings['database']);
 };
 
-$container['xslt-processor'] = function ($c) {
+$container['xsltProcessor'] = function ($c) {
     $document = new DOMDocument();
     $document->load(__DIR__ . '/../structure.xsl');
     $xsltProcessor = new XSLTProcessor();
 	$xsltProcessor->registerPHPFunctions();
-	$xsltProcessor->importStyleSheet($domDocument);
+	$xsltProcessor->importStyleSheet($document);
     return $xsltProcessor;
 };
