@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,6 +16,8 @@
         <!-- font awesome -->
         <script src="https://use.fontawesome.com/f795e2c63e.js"></script>
 
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <title>{% if title is defined %} {{ title }} {% else %} Pholio - The PHP Document Archive {% endif %}</title>
     </head>
     <body>
@@ -24,29 +26,32 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">Pholio -<em>The PHP Document Archive.</em></a>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-            </div><!-- /.container-fluid -->
+            </div>
         </nav>
         <section class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="search-box">
-                        <form class="search-form">
-                            <input type="text" class="form-control" placeholder="Search libraries ..." />
-                        </form>
+                    <input name="keywords" id="search-box" type="text" class="form-control" placeholder="Search libraries ..." />
+                </div>
+            </div>
+            {% if is_front %}
+                <div class="row">
+                    <div class="col-md-12">
+                         <p>Pholio is a <a href="http://www.phpdoc.org/">PhpDocumentor</a> repository. It aggregates documentation for various PHP libraries.</p>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                     <p>Pholio is a <a href="http://www.phpdoc.org/">PhpDocumentor</a> repository. It aggregates documentation for various PHP libraries.</p>
-                </div>
-            </div>
+            {% endif %}
         </section>
-        <section class="wrapper">
+        <hr />
+        <section id="main" class="wrapper">
         {% block content %}
         {% endblock %}
-        <section>
+        </section>
+        <section id="search-results" class="container content">
+            <ul class="libraries list-unstyled">
+<li>default</li>
+            </ul>
+        </section>
         <footer class="footer">
             <nav class="container">
                 <div class="row">
@@ -61,5 +66,60 @@
                 </div>
             </nav>
         </footer>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#search-box').keyup(function () {
+                    if ($(this).val().length == 0) {
+                        $('#main').show();
+                        $('#search-results ul li').remove();
+                        return;
+                    }
+
+                    if ($(this).val().length < 3) {
+                        return;
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/search",
+                        dataType: "json",
+                        data: JSON.stringify({ keywords: $('#search-box').val() }),
+                        contentType: "application/json; charset=utf-8",
+                        error: function (errMsg) {
+                            alert("ERROR: " + errMsg);
+                        },
+                        success: function (data) {
+                            $('#main').hide();
+                            $('#search-results ul li').remove();
+                            for (i = 0; i < data.libraries.length; i++) {
+                                var owner = data.libraries[i].owner;
+                                var package = data.libraries[i].package;
+                                var stars = data.libraries[i].stars;
+                                var watchers = data.libraries[i].watchers;
+                                var description = data.libraries[i].description;
+                                var li =
+'<li class="row">' +
+    '<div class="col-xs-12 library-item">' +
+        '<div class="row">' +
+            '<div class="col-sm-9 col-lg-10">' +
+                '<h4 class="font-bold"><a href="/' + owner + '/' + package + '">' + owner + '/' + package + '</a></h4>' +
+                '<p>' + description + '</p>' +
+            '</div>' +
+            '<div class="col-sm-3 col-lg-2">' +
+                '<p>' +
+                    '<span class="metadata-block"><i class="fa fa-star-o fa-lg"></i>&nbsp;' + stars + '</span>' +
+                    '<span class="metadata-block"><i class="fa fa-eye fa-lg"></i>&nbsp;' + watchers + '</span>' +
+                '</p>' +
+            '</div>' +
+        '</div>' +
+    '</div>' +
+'</li>';
+                                $('#search-results ul').append(li);
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

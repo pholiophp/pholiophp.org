@@ -3,7 +3,7 @@
 use DominionEnterprises\Util;
 
 $app->get('/', function ($request, $response) {
-    return $this->renderer->render($response, 'index.html', ['title' => 'Pholio - The PHP Document Archive']);
+    return $this->renderer->render($response, 'index.html', ['title' => 'Pholio - The PHP Document Archive', 'is_front' => true]);
 });
 
 $app->post('/hook', function ($request, $response, $arguments) {
@@ -70,6 +70,46 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
         $response,
         'library.html',
         $document->getArrayCopy() + ['phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc)]
+    );
+});
+
+$app->post('/search', function ($request, $response, $arguments) {
+    $result = ['libraries' => []];
+    try {
+        $keywords = strtolower(Util\Arrays::get($request->getParsedBody(), 'keywords'));
+        $ors = [];
+        foreach (explode(' ', trim($keywords)) as $keyword) {
+            $ors[] = ['keywords' => ['$regex' => "^{$keyword}"]];
+            $ors[] = ['owner' => ['$regex' => "^{$keyword}"]];
+            $ors[] = ['package' => ['$regex' => "^{$keyword}"]];
+        }
+
+        $libraries = $this->mongodb->selectCollection('libraries')->find(
+            ['$or' => $ors],
+            [
+                'projection' => [
+                    'owner' => true,
+                    'package' => true,
+                    'description' => true,
+                    'stars' => true,
+                    'watchers' => true,
+                ],
+                'sort' => ['owner' => 1, 'package' => 1],
+            ]
+        )->toArray();
+
+        $result = ['libraries' => $libraries];
+    } catch (Throwable $e) {
+        error_log($e->getMessage());
+        $result = ['libraries' => []];
+    }
+
+    $stream = fopen('php://temp', 'r+');
+    fwrite($stream, json_encode($result));
+    rewind($stream);
+
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json')->withBody(
+		new Zend\Diactoros\Stream($stream)
     );
 });
 
