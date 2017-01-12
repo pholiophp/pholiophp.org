@@ -21,12 +21,28 @@
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Pholio - The PHP Document Archive.</a>
+                    <a class="navbar-brand" href="/">Pholio -<em>The PHP Document Archive.</em></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <section class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search-box">
+                        <form class="search-form">
+                            <input type="text" class="form-control" placeholder="Search libraries ..." />
+                        </form>
+                    </div>
                 </div>
             </div>
-        </nav>
+            <div class="row">
+                <div class="col-md-12">
+                     <p>Pholio is a <a href="http://www.phpdoc.org/">PhpDocumentor</a> repository. It aggregates documentation for various PHP libraries.</p>
+                </div>
+            </div>
+        </section>
         <section class="wrapper">
         {% block content %}
         {% endblock %}
