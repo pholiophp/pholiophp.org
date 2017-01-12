@@ -1,0 +1,110 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #272b30;
+}
+
+
+ul.libraries {
+    margin-top: 20px;
+}
+
+ul.libraries h1 {
+  font-family: Verdana;
+  font-size: 22px;
+  line-height: 1em;
+  font-weight: normal;
+  margin: 0;
+  padding: 8px 4px 0 0;
+  height: 32px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+ul.libraries .metadata {
+  font-size: 15px;
+}
+ul.libraries .metadata {
+  top: 3px;
+  margin: 0 1px;
+  font-size: 18px;
+}
+ul.libraries .metadata-block {
+  display: block;
+}
+ul.libraries .metadata-block:last-child {
+  margin-bottom: 0;
+}
+
+.libraries-short ul {
+    list-style: none;
+    margin: 0;
+}
+
+.libraries-short li {
+    margin-bottom: 12px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.libraries-short li a {
+    display: block;
+    font-style: normal;
+}
+
+.libraries-short li a strong {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.libraries .library-item {
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    background: #697075;
+    border-radius: 4px;
+}
+
+.libraries .selected .library-item {
+    padding: 4px 14px;
+    border: 1px solid #F28D1A;
+}
+
+.libraries .library-item h4 {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.libraries .library-item h4 small {
+    margin-left: 5px;
+    color: #83C129;
+    font-size: 16px;
+}
+
+
+/*!
+ * IE10 viewport hack for Surface/desktop Windows 8 bug
+ * Copyright 2014-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/*
+ * See the Getting Started docs for more information:
+ * http://getbootstrap.com/getting-started/#support-ie10-width
+ */
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }

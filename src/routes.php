@@ -77,9 +77,28 @@ $app->get('/{username}', function ($request, $response, $arguments) {
     $username = Util\Arrays::get($arguments, 'username');
     $libraries = $this->mongodb->selectCollection('libraries')->find(
         ['owner' => $username],
-        ['projection' => ['owner' => true, 'package' => true, 'description' => true]]
+        [
+            'projection' => [
+                'owner' => true,
+                'package' => true,
+                'description' => true,
+                'avatar' => true,
+                'stars' => true,
+                'watchers' => true,
+            ],
+            'sort' => ['package' => 1],
+        ]
     )->toArray();
 
-    return $this->renderer->render($response, 'user.html', ['libraries' => $libraries, 'owner' => $username]);
+    $avatar = 'https://avatars2.githubusercontent.com/u/14337786';
+    if (!empty($libraries)) {
+        $avatar = $libraries[0]['avatar'];
+    }
+
+    return $this->renderer->render(
+        $response,
+        'user.html',
+        ['libraries' => $libraries, 'owner' => $username, 'avatar' => $avatar]
+    );
 });
 
