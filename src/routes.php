@@ -76,31 +76,38 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
 $app->post('/search', function ($request, $response, $arguments) {
     $result = ['libraries' => []];
     try {
-        $keywords = strtolower(Util\Arrays::get($request->getParsedBody(), 'keywords'));
-        $ors = [];
-        foreach (explode(' ', trim($keywords)) as $keyword) {
-            $ors[] = ['keywords' => ['$regex' => "^{$keyword}"]];
-            $ors[] = ['owner' => ['$regex' => "^{$keyword}"]];
-            $ors[] = ['package' => ['$regex' => "^{$keyword}"]];
+        $keywords = Util\Arrays::get($request->getParsedBody(), 'keywords');
+        $keywords = preg_replace("/[^A-Za-z0-9 ]/", '', $keywords); //remove non-alphanumeric
+        $keywords = strtolower($keywords);
+        $keywords = preg_replace('/[^\x20-\x7E]/', ' ', $keywords); // remove non ASCII
+        $keywords = preg_replace('/\s+/', ' ', $keywords); // remove superfluous whitespace
+        $keywords = trim($keywords);
+
+        if (trim($keywords) != '') {
+            $ors = [];
+            foreach (explode(' ', $keywords) as $keyword) {
+                $ors[] = ['keywords' => ['$regex' => "^{$keyword}"]];
+                $ors[] = ['owner' => ['$regex' => "^{$keyword}"]];
+                $ors[] = ['package' => ['$regex' => "^{$keyword}"]];
+            }
+
+            $libraries = $this->mongodb->selectCollection('libraries')->find(
+                ['$or' => $ors],
+                [
+                    'projection' => [
+                        'owner' => true,
+                        'package' => true,
+                        'description' => true,
+                        'stars' => true,
+                        'watchers' => true,
+                    ],
+                    'sort' => ['owner' => 1, 'package' => 1, 'keywords' => 1],
+                ]
+            )->toArray();
+
+            $result = ['libraries' => $libraries];
         }
-
-        $libraries = $this->mongodb->selectCollection('libraries')->find(
-            ['$or' => $ors],
-            [
-                'projection' => [
-                    'owner' => true,
-                    'package' => true,
-                    'description' => true,
-                    'stars' => true,
-                    'watchers' => true,
-                ],
-                'sort' => ['owner' => 1, 'package' => 1],
-            ]
-        )->toArray();
-
-        $result = ['libraries' => $libraries];
     } catch (Throwable $e) {
-        error_log($e->getMessage());
         $result = ['libraries' => []];
     }
 
