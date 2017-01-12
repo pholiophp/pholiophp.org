@@ -74,10 +74,6 @@
                         return;
                     }
 
-                    if ($(this).val().length < 3) {
-                        return;
-                    }
-
                     $.ajax({
                         type: "POST",
                         url: "/search",
