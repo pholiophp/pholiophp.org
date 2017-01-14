@@ -5,6 +5,12 @@
                 xsl:extension-element-prefixes="php">
     <xsl:output method="html" indent="yes" />
     <xsl:template match="/">
+        <xsl:variable name="allClasses">
+            <xsl:for-each select="//full_name">
+                <xsl:value-of select="." />
+            </xsl:for-each>
+        </xsl:variable>
+
         <!-- interfaces -->
         <xsl:for-each select="/project/file/interface" >
             <xsl:variable name="constantCount" select="count(constant)" />
@@ -46,12 +52,19 @@
                                     <h3>Extends</h3>
                                     <xsl:for-each select="extends">
                                         <xsl:if test=". != ''">
-                                           <xsl:element name="a">
-                                               <xsl:attribute name="href">
-                                                   <xsl:value-of select="concat('#', translate(., '\', '_'))" />
-                                               </xsl:attribute>
-                                               <code><xsl:value-of select="." /></code>
-                                           </xsl:element>
+                                            <xsl:choose>
+                                                <xsl:when test="contains($allClasses, .)">
+                                                    <xsl:element name="a">
+                                                        <xsl:attribute name="href">
+                                                            <xsl:value-of select="concat('#', translate(., '\', '_'))" />
+                                                        </xsl:attribute>
+                                                        <code><xsl:value-of select="." /></code>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <code><xsl:value-of select="." /></code>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                            <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
                                            <xsl:if test="(position() mod 3) = 0">
                                                <br />
@@ -230,16 +243,23 @@
                                     <h3>Extends</h3>
                                     <xsl:for-each select="extends">
                                         <xsl:if test=". != ''">
-                                           <xsl:element name="a">
-                                               <xsl:attribute name="href">
-                                                   <xsl:value-of select="concat('#', translate(., '\', '_'))" />
-                                               </xsl:attribute>
-                                               <code><xsl:value-of select="." /></code>
-                                           </xsl:element>
-                                           <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
-                                           <xsl:if test="(position() mod 3) = 0">
-                                               <br />
-                                           </xsl:if>
+                                            <xsl:choose>
+                                                <xsl:when test="contains($allClasses, .)">
+                                                    <xsl:element name="a">
+                                                        <xsl:attribute name="href">
+                                                            <xsl:value-of select="concat('#', translate(., '\', '_'))" />
+                                                        </xsl:attribute>
+                                                        <code><xsl:value-of select="." /></code>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <code><xsl:value-of select="." /></code>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                            <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
+                                            <xsl:if test="(position() mod 3) = 0">
+                                                <br />
+                                            </xsl:if>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
@@ -255,16 +275,23 @@
                                     <h3>Implements</h3>
                                     <xsl:for-each select="implements">
                                         <xsl:if test=". != ''">
-                                           <xsl:element name="a">
-                                               <xsl:attribute name="href">
-                                                   <xsl:value-of select="concat('#', translate(., '\', '_'))" />
-                                               </xsl:attribute>
-                                               <code><xsl:value-of select="." /></code>
-                                           </xsl:element>
-                                           <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
-                                           <xsl:if test="(position() mod 3) = 0">
-                                               <br />
-                                           </xsl:if>
+                                            <xsl:choose>
+                                                <xsl:when test="contains($allClasses, .)">
+                                                    <xsl:element name="a">
+                                                        <xsl:attribute name="href">
+                                                            <xsl:value-of select="concat('#', translate(., '\', '_'))" />
+                                                        </xsl:attribute>
+                                                        <code><xsl:value-of select="." /></code>
+                                                    </xsl:element>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <code><xsl:value-of select="." /></code>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                            <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
+                                            <xsl:if test="(position() mod 3) = 0">
+                                                <br />
+                                            </xsl:if>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
