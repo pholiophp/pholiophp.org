@@ -33,7 +33,7 @@
                                     <li class="list-group-item">
                                         <xsl:element name="a">
                                             <xsl:attribute name="href">
-                                                <xsl:value-of select="concat('#interface_', translate(full_name, '\', '_'))" />
+                                                <xsl:value-of select="concat('#', translate(full_name, '\', '_'))" />
                                             </xsl:attribute>
                                             <xsl:value-of select="name" />
                                         </xsl:element>
@@ -43,7 +43,7 @@
                                     <li class="list-group-item">
                                         <xsl:element name="a">
                                             <xsl:attribute name="href">
-                                                <xsl:value-of select="concat('#class_', translate(full_name, '\', '_'))" />
+                                                <xsl:value-of select="concat('#', translate(full_name, '\', '_'))" />
                                             </xsl:attribute>
                                             <xsl:value-of select="name" />
                                         </xsl:element>
@@ -53,7 +53,7 @@
                                     <li class="list-group-item">
                                         <xsl:element name="a">
                                             <xsl:attribute name="href">
-                                                <xsl:value-of select="concat('#trait_', translate(full_name, '\', '_'))" />
+                                                <xsl:value-of select="concat('#', translate(full_name, '\', '_'))" />
                                             </xsl:attribute>
                                             <xsl:value-of select="name" />
                                         </xsl:element>

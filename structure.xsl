@@ -9,7 +9,7 @@
         <xsl:for-each select="/project/file/interface" >
             <xsl:variable name="constantCount" select="count(constant)" />
             <xsl:variable name="methodCount" select="count(method)" />
-            <xsl:variable name="interfaceId" select="concat('interface_', translate(full_name, '\', '_'))" />
+            <xsl:variable name="interfaceId" select="concat('', translate(full_name, '\', '_'))" />
             <xsl:variable name="constantsId" select="concat('constants_', translate(full_name, '\', '_'))" />
             <xsl:variable name="methodsId" select="concat('methods_', translate(full_name, '\', '_'))" />
             <xsl:element name="div">
@@ -34,6 +34,28 @@
                             <xsl:element name="div">
                                 <xsl:attribute name="id"><xsl:value-of select="concat('accordian', $interfaceId)" /></xsl:attribute>
                                 <xsl:attribute name="class">accordion</xsl:attribute>
+
+                                <xsl:variable name="hasExtends">
+                                    <xsl:for-each select="extends">
+                                        <xsl:if test=". != ''">
+                                            <xsl:value-of select="." />
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:variable>
+                                <xsl:if test="$hasExtends != ''">
+                                    <h3>Extends</h3>
+                                    <xsl:for-each select="extends">
+                                        <xsl:if test=". != ''">
+                                           <xsl:element name="a">
+                                               <xsl:attribute name="href">
+                                                   <xsl:value-of select="concat('#', translate(., '\', '_'))" />
+                                               </xsl:attribute>
+                                               <code><xsl:value-of select="." /></code>
+                                           </xsl:element>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:if>
+
                                 <xsl:if test="$constantCount &gt; 0">
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
@@ -165,7 +187,7 @@
             <xsl:variable name="constantCount" select="count(constant)" />
             <xsl:variable name="methodCount" select="count(method)" />
             <xsl:variable name="propertyCount" select="count(property[@visibility='public'])" />
-            <xsl:variable name="classId" select="concat('class_', translate(full_name, '\', '_'))" />
+            <xsl:variable name="classId" select="concat('', translate(full_name, '\', '_'))" />
             <xsl:variable name="constantsId" select="concat('constants_', translate(full_name, '\', '_'))" />
             <xsl:variable name="methodsId" select="concat('methods_', translate(full_name, '\', '_'))" />
             <xsl:element name="div">
@@ -190,6 +212,49 @@
                             <xsl:element name="div">
                                 <xsl:attribute name="id"><xsl:value-of select="concat('accordian', $classId)" /></xsl:attribute>
                                 <xsl:attribute name="class">accordion</xsl:attribute>
+
+                                <xsl:variable name="hasExtends">
+                                    <xsl:for-each select="extends">
+                                        <xsl:if test=". != ''">
+                                            <xsl:value-of select="." />
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:variable>
+                                <xsl:if test="$hasExtends != ''">
+                                    <h3>Extends</h3>
+                                    <xsl:for-each select="extends">
+                                        <xsl:if test=". != ''">
+                                           <xsl:element name="a">
+                                               <xsl:attribute name="href">
+                                                   <xsl:value-of select="concat('#', translate(., '\', '_'))" />
+                                               </xsl:attribute>
+                                               <code><xsl:value-of select="." /></code>
+                                           </xsl:element>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:if>
+
+                                <xsl:variable name="hasImplements">
+                                    <xsl:for-each select="implements">
+                                        <xsl:if test=". != ''">
+                                            <xsl:value-of select="." />
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:variable>
+                                <xsl:if test="$hasImplements != ''">
+                                    <h3>Implements</h3>
+                                    <xsl:for-each select="implements">
+                                        <xsl:if test=". != ''">
+                                           <xsl:element name="a">
+                                               <xsl:attribute name="href">
+                                                   <xsl:value-of select="concat('#', translate(., '\', '_'))" />
+                                               </xsl:attribute>
+                                               <code><xsl:value-of select="." /></code>
+                                           </xsl:element>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:if>
+
                                 <xsl:if test="$constantCount &gt; 0">
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
@@ -368,7 +433,7 @@
         <!-- traits -->
         <xsl:for-each select="/project/file/trait" >
             <xsl:variable name="methodCount" select="count(method)" />
-            <xsl:variable name="traitId" select="concat('trait_', translate(full_name, '\', '_'))" />
+            <xsl:variable name="traitId" select="concat('', translate(full_name, '\', '_'))" />
             <xsl:variable name="methodsId" select="concat('methods_', translate(full_name, '\', '_'))" />
             <xsl:element name="div">
                 <xsl:attribute name="class">accordion</xsl:attribute>
