@@ -27,7 +27,7 @@ abstract class Xslt
         $return = $returnTags->length ? $returnTags->item(0)->nodeValue : 'void';
 
         $signature = "{$methodName}(" . implode(', ', $parameters) . ") : {$return}";
-        if (strlen($signature) <= 100) {
+        if (strlen($signature) <= 80) {
             return $signature;
         }
 
