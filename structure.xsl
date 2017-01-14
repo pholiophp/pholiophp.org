@@ -99,7 +99,7 @@
                                     </div>
                                 </xsl:if>
 
-                                <xsl:if test="$methodCount &gt; 0">
+                                <xsl:if test="$methodCount &gt; count(method/inherited_from)">
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
                                            <xsl:element name="a">
@@ -115,61 +115,63 @@
                                             <xsl:attribute name="class">accordion-body collapse in</xsl:attribute>
                                             <div class="accordion-inner">
                                                 <xsl:for-each select="method">
-                                                    <div class="row">
-                                                        <div class="col-md-12 pull-left">
-                                                            <h4><xsl:value-of select="../name" />::<xsl:value-of select="name" />()</h4>
-                                                        </div>
-                                                        <div class="col-md-11 col-md-offset-1">
-                                                            <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', docblock/description)" /></p>
-                                                            <pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre>
-                                                            <xsl:variable name="parameterCount" select="count(docblock/tag[@name='param'])" />
-                                                            <xsl:if test="$parameterCount &gt; 0">
-                                                                <h5>Parameters</h5>
-                                                                <table class="table table-bordered">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Name</th>
-                                                                            <th>Type</th>
-                                                                            <th>Description</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <xsl:for-each select="docblock/tag[@name='param']">
+                                                    <xsl:if test="not(inherited_from)">
+                                                        <div class="row">
+                                                            <div class="col-md-12 pull-left">
+                                                                <h4><xsl:value-of select="../name" />::<xsl:value-of select="name" />()</h4>
+                                                            </div>
+                                                            <div class="col-md-11 col-md-offset-1">
+                                                                <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', docblock/description)" /></p>
+                                                                <pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre>
+                                                                <xsl:variable name="parameterCount" select="count(docblock/tag[@name='param'])" />
+                                                                <xsl:if test="$parameterCount &gt; 0">
+                                                                    <h5>Parameters</h5>
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
                                                                             <tr>
-                                                                                <td><xsl:value-of select="@variable" /></td>
-                                                                                <td><code><xsl:value-of select="@type" /></code></td>
-                                                                                <td><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></td>
+                                                                                <th>Name</th>
+                                                                                <th>Type</th>
+                                                                                <th>Description</th>
                                                                             </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <xsl:for-each select="docblock/tag[@name='param']">
+                                                                                <tr>
+                                                                                    <td><xsl:value-of select="@variable" /></td>
+                                                                                    <td><code><xsl:value-of select="@type" /></code></td>
+                                                                                    <td><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></td>
+                                                                                </tr>
+                                                                            </xsl:for-each>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </xsl:if>
+                                                            </div>
+                                                            <div class="col-md-11 col-md-offset-1">
+                                                                <h5>Return Value</h5>
+                                                                <xsl:choose>
+                                                                    <xsl:when test="docblock/tag[@name='return']/type != 'void'">
+                                                                        <code><xsl:value-of select="docblock/tag[@name='return']/@type" /></code>
+                                                                        <p><xsl:value-of select="docblock/tag[@name='return']/@description" /></p>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>void</xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </div>
+                                                            <xsl:variable name="exceptionCount" select="count(docblock/tag[@name='throws'])" />
+                                                            <xsl:if test="$exceptionCount &gt; 0">
+                                                                <div class="col-md-11 col-md-offset-1">
+                                                                    <h5>Exceptions</h5>
+                                                                    <table class="table">
+                                                                        <xsl:for-each select="docblock/tag[@name='throws']">
+                                                                             <tr>
+                                                                                <td><code><xsl:value-of select="@type" /></code></td>
+                                                                                <td><xsl:value-of select="@description" /></td>
+                                                                             </tr>
                                                                         </xsl:for-each>
-                                                                    </tbody>
-                                                                </table>
+                                                                    </table>
+                                                                </div>
                                                             </xsl:if>
                                                         </div>
-                                                        <div class="col-md-11 col-md-offset-1">
-                                                            <h5>Return Value</h5>
-                                                            <xsl:choose>
-                                                                <xsl:when test="docblock/tag[@name='return']/type != 'void'">
-                                                                    <code><xsl:value-of select="docblock/tag[@name='return']/@type" /></code>
-                                                                    <p><xsl:value-of select="docblock/tag[@name='return']/@description" /></p>
-                                                                </xsl:when>
-                                                                <xsl:otherwise>void</xsl:otherwise>
-                                                            </xsl:choose>
-                                                        </div>
-                                                        <xsl:variable name="exceptionCount" select="count(docblock/tag[@name='throws'])" />
-                                                        <xsl:if test="$exceptionCount &gt; 0">
-                                                            <div class="col-md-11 col-md-offset-1">
-                                                                <h5>Exceptions</h5>
-                                                                <table class="table">
-                                                                    <xsl:for-each select="docblock/tag[@name='throws']">
-                                                                         <tr>
-                                                                            <td><code><xsl:value-of select="@type" /></code></td>
-                                                                            <td><xsl:value-of select="@description" /></td>
-                                                                         </tr>
-                                                                    </xsl:for-each>
-                                                                </table>
-                                                            </div>
-                                                        </xsl:if>
-                                                    </div>
+                                                    </xsl:if>
                                                 </xsl:for-each>
                                             </div>
                                         </xsl:element>
@@ -349,7 +351,7 @@
                                     </div>
                                 </xsl:if>
 
-                                <xsl:if test="$methodCount &gt; 0">
+                                <xsl:if test="$methodCount &gt; count(method/inherited_from)">
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
                                            <xsl:element name="a">
@@ -365,71 +367,73 @@
                                             <xsl:attribute name="class">accordion-body collapse in</xsl:attribute>
                                             <div class="accordion-inner">
                                                 <xsl:for-each select="method">
-                                                    <div class="row">
-                                                        <div class="col-md-12 pull-left">
-                                                            <h4><xsl:value-of select="../name" />::<xsl:value-of select="name" />()</h4>
-                                                        </div>
-                                                        <div class="col-md-11 col-md-offset-1">
-                                                            <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', docblock/description)" /></p>
-                                                            <p>
-                                                                <xsl:if test="@final = 'true'">
-                                                                    <span class="label label-default">FINAL</span>
-                                                                    <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
-                                                                </xsl:if>
+                                                    <xsl:if test="not(inherited_from)">
+                                                        <div class="row">
+                                                            <div class="col-md-12 pull-left">
+                                                                <h4><xsl:value-of select="../name" />::<xsl:value-of select="name" />()</h4>
+                                                            </div>
+                                                            <div class="col-md-11 col-md-offset-1">
+                                                                <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', docblock/description)" /></p>
+                                                                <p>
+                                                                    <xsl:if test="@final = 'true'">
+                                                                        <span class="label label-default">FINAL</span>
+                                                                        <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
+                                                                    </xsl:if>
 
-                                                                <xsl:if test="@static = 'true'">
-                                                                    <span class="label label-default">STATIC</span>
-                                                                </xsl:if>
-                                                            </p>
-                                                            <pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre>
-                                                            <xsl:variable name="parameterCount" select="count(docblock/tag[@name='param'])" />
-                                                            <xsl:if test="$parameterCount &gt; 0">
-                                                                <h5>Parameters</h5>
-                                                                <table class="table table-bordered">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Name</th>
-                                                                            <th>Type</th>
-                                                                            <th>Description</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <xsl:for-each select="docblock/tag[@name='param']">
+                                                                    <xsl:if test="@static = 'true'">
+                                                                        <span class="label label-default">STATIC</span>
+                                                                    </xsl:if>
+                                                                </p>
+                                                                <pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre>
+                                                                <xsl:variable name="parameterCount" select="count(docblock/tag[@name='param'])" />
+                                                                <xsl:if test="$parameterCount &gt; 0">
+                                                                    <h5>Parameters</h5>
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
                                                                             <tr>
-                                                                                <td><xsl:value-of select="@variable" /></td>
-                                                                                <td><code><xsl:value-of select="@type" /></code></td>
-                                                                                <td><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></td>
+                                                                                <th>Name</th>
+                                                                                <th>Type</th>
+                                                                                <th>Description</th>
                                                                             </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <xsl:for-each select="docblock/tag[@name='param']">
+                                                                                <tr>
+                                                                                    <td><xsl:value-of select="@variable" /></td>
+                                                                                    <td><code><xsl:value-of select="@type" /></code></td>
+                                                                                    <td><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', @description)" /></td>
+                                                                                </tr>
+                                                                            </xsl:for-each>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </xsl:if>
+                                                            </div>
+                                                            <div class="col-md-11 col-md-offset-1">
+                                                                <h5>Return Value</h5>
+                                                                <xsl:choose>
+                                                                    <xsl:when test="docblock/tag[@name='return']/type != 'void'">
+                                                                        <code><xsl:value-of select="docblock/tag[@name='return']/@type" /></code>
+                                                                        <p><xsl:value-of select="docblock/tag[@name='return']/@description" /></p>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>void</xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </div>
+                                                            <xsl:variable name="exceptionCount" select="count(docblock/tag[@name='throws'])" />
+                                                            <xsl:if test="$exceptionCount &gt; 0">
+                                                                <div class="col-md-11 col-md-offset-1">
+                                                                    <h5>Exceptions</h5>
+                                                                    <table class="table">
+                                                                        <xsl:for-each select="docblock/tag[@name='throws']">
+                                                                             <tr>
+                                                                                <td><code><xsl:value-of select="@type" /></code></td>
+                                                                                <td><xsl:value-of select="@description" /></td>
+                                                                             </tr>
                                                                         </xsl:for-each>
-                                                                    </tbody>
-                                                                </table>
+                                                                    </table>
+                                                                </div>
                                                             </xsl:if>
                                                         </div>
-                                                        <div class="col-md-11 col-md-offset-1">
-                                                            <h5>Return Value</h5>
-                                                            <xsl:choose>
-                                                                <xsl:when test="docblock/tag[@name='return']/type != 'void'">
-                                                                    <code><xsl:value-of select="docblock/tag[@name='return']/@type" /></code>
-                                                                    <p><xsl:value-of select="docblock/tag[@name='return']/@description" /></p>
-                                                                </xsl:when>
-                                                                <xsl:otherwise>void</xsl:otherwise>
-                                                            </xsl:choose>
-                                                        </div>
-                                                        <xsl:variable name="exceptionCount" select="count(docblock/tag[@name='throws'])" />
-                                                        <xsl:if test="$exceptionCount &gt; 0">
-                                                            <div class="col-md-11 col-md-offset-1">
-                                                                <h5>Exceptions</h5>
-                                                                <table class="table">
-                                                                    <xsl:for-each select="docblock/tag[@name='throws']">
-                                                                         <tr>
-                                                                            <td><code><xsl:value-of select="@type" /></code></td>
-                                                                            <td><xsl:value-of select="@description" /></td>
-                                                                         </tr>
-                                                                    </xsl:for-each>
-                                                                </table>
-                                                            </div>
-                                                        </xsl:if>
-                                                    </div>
+                                                    </xsl:if>
                                                 </xsl:for-each>
                                             </div>
                                         </xsl:element>
