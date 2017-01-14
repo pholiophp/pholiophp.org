@@ -53,6 +53,9 @@
                                                <code><xsl:value-of select="." /></code>
                                            </xsl:element>
                                            <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
+                                           <xsl:if test="(position() mod 3) = 0">
+                                               <br />
+                                           </xsl:if>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
@@ -234,6 +237,9 @@
                                                <code><xsl:value-of select="." /></code>
                                            </xsl:element>
                                            <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
+                                           <xsl:if test="(position() mod 3) = 0">
+                                               <br />
+                                           </xsl:if>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
@@ -256,6 +262,9 @@
                                                <code><xsl:value-of select="." /></code>
                                            </xsl:element>
                                            <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
+                                           <xsl:if test="(position() mod 3) = 0">
+                                               <br />
+                                           </xsl:if>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
