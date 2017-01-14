@@ -66,10 +66,19 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     $xmlDoc = new \DOMDocument();
     $xmlDoc->loadXml($document[$version]);
 
+    $menuXsl = new DOMDocument();
+    $menuXsl->load(__DIR__ . '/../menu.xsl');
+    $menuXslProcessor = new XSLTProcessor();
+    $menuXslProcessor->registerPHPFunctions();
+    $menuXslProcessor->importStyleSheet($menuXsl);
+
     return $this->renderer->render(
         $response,
         'library.html',
-        $document->getArrayCopy() + ['phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc)]
+        $document->getArrayCopy() + [
+			'menu' => $menuXslProcessor->transformToXML($xmlDoc),
+			'phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc),
+        ]
     );
 });
 

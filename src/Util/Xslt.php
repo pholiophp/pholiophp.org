@@ -26,7 +26,13 @@ abstract class Xslt
         $returnTags = $xpath->query("docblock/tag[@name='return']/type", $node);
         $return = $returnTags->length ? $returnTags->item(0)->nodeValue : 'void';
 
-        return "{$methodName}(" . implode(', ', $parameters) . ") : {$return}";
+        $signature = "{$methodName}(" . implode(', ', $parameters) . ") : {$return}";
+        if (strlen($signature) <= 100) {
+            return $signature;
+        }
+
+        return "{$methodName}(\n  " . implode(",\n  ", $parameters) . "\n) : {$return}";
+
     }
 
     public static function decode(array $arguments)
