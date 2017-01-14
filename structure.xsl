@@ -52,6 +52,7 @@
                                                </xsl:attribute>
                                                <code><xsl:value-of select="." /></code>
                                            </xsl:element>
+                                           <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
@@ -230,6 +231,7 @@
                                                </xsl:attribute>
                                                <code><xsl:value-of select="." /></code>
                                            </xsl:element>
+                                           <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
@@ -251,6 +253,7 @@
                                                </xsl:attribute>
                                                <code><xsl:value-of select="." /></code>
                                            </xsl:element>
+                                           <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
                                         </xsl:if>
                                     </xsl:for-each>
                                 </xsl:if>
@@ -368,6 +371,16 @@
                                                         </div>
                                                         <div class="col-md-11 col-md-offset-1">
                                                             <p><xsl:value-of select="php:function('\Pholio\Util\Xslt::stripTags', docblock/description)" /></p>
+                                                            <p>
+                                                                <xsl:if test="@final = 'true'">
+                                                                    <span class="label label-default">FINAL</span>
+                                                                    <xsl:text>&#xA0;&#xA0;&#xA0;</xsl:text>
+                                                                </xsl:if>
+
+                                                                <xsl:if test="@static = 'true'">
+                                                                    <span class="label label-default">STATIC</span>
+                                                                </xsl:if>
+                                                            </p>
                                                             <pre><xsl:value-of select="php:function('\Pholio\Util\Xslt::signature', current())" /></pre>
                                                             <xsl:variable name="parameterCount" select="count(docblock/tag[@name='param'])" />
                                                             <xsl:if test="$parameterCount &gt; 0">
