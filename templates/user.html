@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <section class="container content" role="main">
-        <h1>Libraries from {{ owner|e }}
-        <img class="pull-right" width="48" height="48" title="{{ owner }}" src="{{ avatar }}">
-        </h1>
+        <h1>Libraries from {{ owner|e }}</h1>
         <ul class="libraries list-unstyled">
             {% for key,library in libraries %}
                 <li data-url="{{ library.owner|e }}/{{ library.package| e}}" class="row">
