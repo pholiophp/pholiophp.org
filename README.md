@@ -4,7 +4,9 @@ The Pholio Website
 This website hosts phpdoc for a variety of PHP libraries.
 
 ## TODO
-[ ] Add Search
-[ ] Create Github Hook
+- [ ] Search
+- [ ] Github Hook
+- [ ] Sign-up
+- [ ] Submit library
 
 
