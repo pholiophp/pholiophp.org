@@ -7,6 +7,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-family: 'Overpass', sans-serif;
 }
 .footer {
   position: absolute;
@@ -94,6 +95,122 @@ ul.libraries .metadata-block:last-child {
     font-size: 16px;
 }
 
+/**
+ * Fork Sticker Styles
+ */
+.fork-sticker {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999;
+}
+
+/**
+ * Bootstrap Override Styles
+ */
+.navbar-default {
+    background: #6CF;
+    border: 0;
+    border-radius: 0;
+    padding: 10px 20px;
+    margin: 0;
+}
+.navbar-default .navbar-brand {
+    font-size: 22px;
+    color: #FFF;
+    text-transform: lowercase;
+    font-weight: bold;
+}
+.navbar-default .navbar-brand em {
+    font-weight: 300;
+}
+
+/**
+ * Index Search Styles
+ */
+.omnisearch {
+    padding: 30px 0;
+    background: #ECEDEE;
+    border-bottom: 2px solid #CBCBCB;
+}
+.omnisearch .tagline {
+    margin: 20px 0 -10px;
+    padding: 0;
+    font-size: 16px;
+    color: #9b9b9b;
+    line-height: 1.25;
+    text-align: center;
+}
+.omnisearch input[type=text] {
+    padding: 15px;
+    border-radius: 4px;
+    border: 2px solid #CBCBCB;
+    height: auto;
+    line-height: 1.25;
+    background: #FFF;
+    box-shadow: 0 0 0 rgba(00,00,00, 0);
+    float: left;
+    width: 80%;
+    transition: all .3s;
+}
+.omnisearch input[type=text]:focus {
+    box-shadow: 0px 0px 10px rgba(00,00,00,.25);
+    outline: none;
+    border-color: #6CF;
+}
+.omnisearch .search-button {
+    display: block;
+    float: right;
+    width: 18%;
+    background: #6CF;
+    color: #FFF;
+    border-radius: 4px;
+    padding: 14px 14px 13px;
+    border: 2px solid #FFF;
+    height: auto;
+    line-height: 1.25;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: lowercase;
+    transition: all .3s;
+}
+.omnisearch .search-button:hover {
+    background: #FFF;
+    color: #6CF;
+    border-color: #6CF;
+}
+
+/**
+ * Footer Styles
+ */
+.footer {
+    background: #1b1b1b;
+    height: auto;
+    padding: 20px 0;
+}
+.footer a {
+    color: #FFF;
+    font-size: 16px;
+    line-height: 40px;
+    text-transform: lowercase;
+    font-weight: bold;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: all .3s;
+}
+.footer a:hover {
+    color: #6CF;
+}
+.footer a em {
+    font-weight: 300;
+}
+.footer a.icon {
+    line-height: 40px;
+    font-size: 24px;
+    margin-left: 10px;
+}
 
 /*!
  * IE10 viewport hack for Surface/desktop Windows 8 bug

@@ -3,72 +3,82 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+        <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,700" rel="stylesheet">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-
         <!-- bootstrap theme -->
-        <link href="https://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet" />
-
+        <!--<link href="https://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet" />-->
         <!-- jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
         <!-- Custom styles for this template -->
         <link href="/css/style.css" rel="stylesheet">
-
         <!-- font awesome -->
         <script src="https://use.fontawesome.com/f795e2c63e.js"></script>
 
         <title>{% if title is defined %} {{ title }} {% else %} Pholio - The PHP Document Archive {% endif %}</title>
     </head>
     <body>
+        <a href="https://github.com/pholiophp/pholiophp.org" class="fork-sticker">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">
+        </a>
         <nav class="navbar navbar-default">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Pholio -<em>The PHP Document Archive.</em></a>
+                    <a class="navbar-brand" href="/">Pholio - <em>The PHP Document Archive.</em></a>
                 </div>
             </div>
         </nav>
-<a href="https://github.com/pholiophp/pholiophp.org"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
-        <section class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <input name="keywords" id="search-box" type="text" class="form-control" placeholder="Search libraries (ex: psr, oauth, slim)" />
-                </div>
-            </div>
-            {% if is_front %}
+
+        <section class="omnisearch">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                         <p>Pholio is a <a href="http://www.phpdoc.org/">PhpDocumentor</a> repository. It aggregates documentation for various PHP libraries.</p>
+                        <input name="keywords" id="search-box" type="text" class="form-control" placeholder="Search libraries (ex: psr, oauth, slim)" />
+                        <span class="search-button" id="search-button">
+                            Submit Search
+                        </span>
                     </div>
                 </div>
-            {% endif %}
+                {% if is_front %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="tagline">Pholio is a <a href="http://www.phpdoc.org/">PhpDocumentor</a> repository. It aggregates documentation for various PHP libraries.</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
         </section>
-        <hr />
+
         <section id="main">
-        {% block content %}
-        {% endblock %}
+            {% block content %}{% endblock %}
         </section>
+
         <section id="search-results" class="container content">
             <ul class="libraries list-unstyled">
             </ul>
         </section>
+
         <footer class="footer">
             <nav class="container">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-xs-8">
+                        <a href="/">Pholio - <em>The PHP Document Archive.</em></a>
                     </div>
-                    <div class="col">
+                    <div class="col-xs-4">
                         <span class="pull-right">
-                            <a href="http://github.com/pholiophp" title="GitHub"><i class="fa fa-github fa-2x"></i></a>
-                            <a href="https://twitter.com/pholiophp" title="Follow @pholiophp"><i class="fa fa-twitter fa-2x"></i></a>
+                            <a href="http://github.com/pholiophp" title="GitHub" class="icon">
+                                <i class="fa fa-github"></i>
+                            </a>
+                            <a href="https://twitter.com/pholiophp" title="Follow @pholiophp" class="icon">
+                                <i class="fa fa-twitter"></i>
+                            </a>
                         </span>
                     </div>
                 </div>
             </nav>
         </footer>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#search-box').keyup(function () {
@@ -78,47 +88,61 @@
                         return;
                     }
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/search",
-                        dataType: "json",
-                        data: JSON.stringify({ keywords: $('#search-box').val() }),
-                        contentType: "application/json; charset=utf-8",
-                        error: function (errMsg) {
-                            alert("ERROR: " + errMsg);
-                        },
-                        success: function (data) {
-                            $('#main').hide();
-                            $('#search-results ul li').remove();
-                            for (i = 0; i < data.libraries.length; i++) {
-                                var owner = data.libraries[i].owner;
-                                var package = data.libraries[i].package;
-                                var stars = data.libraries[i].stars;
-                                var watchers = data.libraries[i].watchers;
-                                var description = data.libraries[i].description;
-                                var li =
-'<li class="row">' +
-    '<div class="col-xs-12">' +
-        '<div class="row">' +
-            '<div class="col-sm-9 col-lg-10">' +
-                '<h4><a href="/' + owner + '/' + package + '">' + owner + '/' + package + '</a></h4>' +
-                '<p>' + description + '</p>' +
-            '</div>' +
-            '<div class="col-sm-3 col-lg-2">' +
-                '<p>' +
-                    '<span class="metadata-block"><i class="fa fa-star-o fa-lg"></i>&nbsp;' + stars + '</span>' +
-                    '<span class="metadata-block"><i class="fa fa-eye fa-lg"></i>&nbsp;' + watchers + '</span>' +
-                '</p>' +
-            '</div>' +
-        '</div>' +
-    '</div>' +
-'</li>';
-                                $('#search-results ul').append(li);
-                            }
-                        }
-                    });
+                    insertSearch();
+                });
+
+                $('#search-button').onclick(function () {
+                    if ($(this).val().length == 0) {
+                        $('#main').show();
+                        $('#search-results ul li').remove();
+                        return;
+                    }
+
+                    insertSearch();
                 });
             });
+
+            function insertSearch() {
+                $.ajax({
+                    type: "POST",
+                    url: "/search",
+                    dataType: "json",
+                    data: JSON.stringify({ keywords: $('#search-box').val() }),
+                    contentType: "application/json; charset=utf-8",
+                    error: function (errMsg) {
+                        alert("ERROR: " + errMsg);
+                    },
+                    success: function (data) {
+                        $('#main').hide();
+                        $('#search-results ul li').remove();
+                        for (i = 0; i < data.libraries.length; i++) {
+                            var owner       = data.libraries[i].owner;
+                            var package     = data.libraries[i].package;
+                            var stars       = data.libraries[i].stars;
+                            var watchers    = data.libraries[i].watchers;
+                            var description = data.libraries[i].description;
+                            var li =
+                                '<li class="row">' +
+                                '<div class="col-xs-12">' +
+                                '<div class="row">' +
+                                '<div class="col-sm-9 col-lg-10">' +
+                                '<h4><a href="/' + owner + '/' + package + '">' + owner + '/' + package + '</a></h4>' +
+                                '<p>' + description + '</p>' +
+                                '</div>' +
+                                '<div class="col-sm-3 col-lg-2">' +
+                                '<p>' +
+                                '<span class="metadata-block"><i class="fa fa-star-o fa-lg"></i>&nbsp;' + stars + '</span>' +
+                                '<span class="metadata-block"><i class="fa fa-eye fa-lg"></i>&nbsp;' + watchers + '</span>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</li>';
+                            $('#search-results ul').append(li);
+                        }
+                    }
+                });
+            }
         </script>
     </body>
 </html>
