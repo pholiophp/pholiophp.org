@@ -3,20 +3,28 @@
 use DominionEnterprises\Util;
 
 $app->get('/', function ($request, $response) {
-    return $this->renderer->render($response, 'index.html', ['title' => 'Pholio - The PHP Document Archive', 'is_front' => true]);
+    return $this->renderer
+                ->render(
+                    $response,
+                    'pages/index.html',
+                    [
+                        'title'    => 'Pholio - The PHP Document Archive',
+                        'is_front' => true
+                    ]
+                );
 });
 
 $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arguments) {
 
-    $owner = Util\Arrays::get($arguments, 'username');
-    $library = Util\Arrays::get($arguments, 'repos');
-    $version = Util\Arrays::get($arguments, 'version', 'dev-master');
-
-    $id = "{$owner}-{$library}";
-
+    $owner    = Util\Arrays::get($arguments, 'username');
+    $library  = Util\Arrays::get($arguments, 'repos');
+    $version  = Util\Arrays::get($arguments, 'version', 'dev-master');
+    $id       = "{$owner}-{$library}";
     $document = Util::ensureNot(
         null,
-        $this->mongodb->selectCollection('libraries')->findOne(['_id' => $id]),
+        $this->mongodb
+             ->selectCollection('libraries')
+             ->findOne(['_id' => $id]),
         'http',
         ["Repository {$owner}/{$library} not found", 404]
     );
@@ -32,9 +40,9 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
 
     return $this->renderer->render(
         $response,
-        'library.html',
+        'pages/library.html',
         $document->getArrayCopy() + [
-			'menu' => $menuXslProcessor->transformToXML($xmlDoc),
+			'menu'   => $menuXslProcessor->transformToXML($xmlDoc),
 			'phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc),
         ]
     );
@@ -111,7 +119,7 @@ $app->get('/{username}', function ($request, $response, $arguments) {
 
     return $this->renderer->render(
         $response,
-        'user.html',
+        'pages/user.html',
         ['libraries' => $libraries, 'owner' => $username, 'avatar' => $avatar]
     );
 });
