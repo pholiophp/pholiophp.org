@@ -2,8 +2,18 @@
 
 namespace Pholio\Util;
 
+/**
+ * Utility class for xml translation.
+ */
 abstract class Xslt
 {
+    /**
+     * Returns a signature for a function.
+     *
+     * @param array $arguments Array containing the XML node with the function information.
+     *
+     * @return string
+     */
     public static function signature(array $arguments)
     {
         $node = $arguments[0];
@@ -32,9 +42,15 @@ abstract class Xslt
         }
 
         return "{$methodName}(\n  " . implode(",\n  ", $parameters) . "\n) : {$return}";
-
     }
 
+    /**
+     * Decodes HTML withing the given node.
+     *
+     * @param array $arguments Array containing the node to be decoded.
+     *
+     * @return string The decoded contents.
+     */
     public static function decode(array $arguments)
     {
         $node = array_pop($arguments);
@@ -48,6 +64,13 @@ abstract class Xslt
         return $decodeOnce;
     }
 
+    /**
+     * Removes HTML withing the given node.
+     *
+     * @param array $arguments Array containing the node with html.
+     *
+     * @return string
+     */
     public static function stripTags(array $arguments)
     {
         $node = array_pop($arguments);

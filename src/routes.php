@@ -15,7 +15,6 @@ $app->get('/', function ($request, $response) {
 });
 
 $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arguments) {
-
     $owner    = Util\Arrays::get($arguments, 'username');
     $library  = Util\Arrays::get($arguments, 'repos');
     $version  = Util\Arrays::get($arguments, 'version', 'dev-master');
@@ -42,8 +41,8 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
         $response,
         'pages/library.html',
         $document->getArrayCopy() + [
-			'menu'   => $menuXslProcessor->transformToXML($xmlDoc),
-			'phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc),
+            'menu'   => $menuXslProcessor->transformToXML($xmlDoc),
+            'phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc),
         ]
     );
 });
@@ -91,7 +90,7 @@ $app->post('/search', function ($request, $response, $arguments) {
     rewind($stream);
 
     return $response->withStatus(200)->withHeader('Content-Type', 'application/json')->withBody(
-		new Zend\Diactoros\Stream($stream)
+        new Zend\Diactoros\Stream($stream)
     );
 });
 
@@ -123,4 +122,3 @@ $app->get('/{username}', function ($request, $response, $arguments) {
         ['libraries' => $libraries, 'owner' => $username, 'avatar' => $avatar]
     );
 });
-

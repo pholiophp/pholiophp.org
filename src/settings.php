@@ -7,9 +7,9 @@ return [
         'renderer' => [
             'template_path' => __DIR__ . '/../templates/',
         ],
-		'mongodb' => [
+        'mongodb' => [
             'server' => getenv('MONGO_URL'),
             'database' => 'pholio',
-		],
+        ],
     ],
 ];
