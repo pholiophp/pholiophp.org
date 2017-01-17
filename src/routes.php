@@ -3,13 +3,45 @@
 use DominionEnterprises\Util;
 
 $app->get('/', function ($request, $response) {
+    $count = $this->mongodb->selectCollection('libraries')->count([]);
+
+    $libraries = $this->mongodb->selectCollection('libraries')->find(
+        [],
+        ['projection' => ['keywords' => true, 'owner' => true]]
+    );
+    $keywords = [];
+    $owners = [];
+    foreach ($libraries as $library) {
+        $owner = $library['owner'];
+
+        if (!array_key_exists($owner, $owners)) {
+            $owners[$owner] = 0;
+        }
+
+        $owners[$owner]++;
+
+        foreach ($library['keywords'] as $keyword) {
+            if (!array_key_exists($keyword, $keywords)) {
+                $keywords[$keyword] = 0;
+            }
+
+            $keywords[$keyword]++;
+        }
+    }
+
+    arsort($keywords);
+    arsort($owners);
+
     return $this->renderer
                 ->render(
                     $response,
                     'pages/index.html',
                     [
                         'title'    => 'Pholio - The PHP Document Archive',
-                        'is_front' => true
+                        'is_front' => true,
+                        'count' => $count,
+                        'keywords' => array_slice($keywords, 0, 10, true),
+                        'owners' => array_slice($owners, 0, 10, true),
                     ]
                 );
 });
