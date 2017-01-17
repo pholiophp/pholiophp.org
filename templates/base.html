@@ -80,6 +80,11 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
+                $('a.search').click(function () {
+                    $('#search-box').val($(this).data('value'));
+                    $('#search-box').keyup();
+                });
+
                 $('#search-box').keyup(function () {
                     if ($(this).val().length == 0) {
                         $('#main').show();
