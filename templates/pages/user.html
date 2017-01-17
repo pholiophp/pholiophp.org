@@ -1,27 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
-    <section class="container content" role="main">
-        <h1>Libraries from {{ owner|e }}</h1>
+    <section class="page-title" role="main">
+        <div class="container">
+            <h1 class="title">Libraries from {{ owner|e }}</h1>
+        </div>
+    </section>
+    <section class="user-results">
         <ul class="libraries list-unstyled">
             {% for key,library in libraries %}
-                <li data-url="{{ library.owner|e }}/{{ library.package| e}}" class="row">
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <div class="col-sm-9 col-lg-10">
-                                <h4 class="font-bold">
-                                    <a href="/{{ library.owner|e }}/{{ library.package|e }}">{{ library.owner|e }}/{{ library.package }}</a>
-                                </h4>
-                                <p>{{ library.description|e }} </p>
-                            </div>
-                            <div class="col-sm-3 col-lg-2">
-                                <p>
-                                    <span class="metadata-block"><i class="fa fa-star-o fa-lg"></i>&nbsp;{{ library.stars }}</span>
-                                    <span class="metadata-block"><i class="fa fa-eye fa-lg"></i>&nbsp;{{ library.watchers }}</span>
-                                </p>
+            <li class="library" data-url="{{ library.owner|e }}/{{ library.package| e}}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-9 col-lg-10">
+                            <h4><a href="/{{ library.owner|e }}/{{ library.package|e }}">/{{ library.owner|e }}/{{ library.package|e }}</a></h4>
+                            <p>{{ library.description|e }} </p>
+                        </div>
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="meta-data">
+                                <div class="block">
+                                    <i class="fa fa-star-o fa-lg"></i>
+                                    <div class="count">
+                                        {{ library.stars }}
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="block">
+                                    <i class="fa fa-eye fa-lg"></i>
+                                    <div class="count">
+                                        {{ library.watchers }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </li>
+                </div>
+            </li>
             {% endfor %}
         </ul>
     </section>
