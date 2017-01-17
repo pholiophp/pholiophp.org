@@ -3,6 +3,8 @@
 use DominionEnterprises\Util;
 
 $app->get('/', function ($request, $response) {
+    $count = $this->mongodb->selectCollection('libraries')->count([]);
+
     $libraries = $this->mongodb->selectCollection('libraries')->find(
         [],
         ['projection' => ['keywords' => true, 'owner' => true]]
@@ -37,6 +39,7 @@ $app->get('/', function ($request, $response) {
                     [
                         'title'    => 'Pholio - The PHP Document Archive',
                         'is_front' => true,
+                        'count' => $count,
                         'keywords' => array_slice($keywords, 0, 10, true),
                         'owners' => array_slice($owners, 0, 10, true),
                     ]
