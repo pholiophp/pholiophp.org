@@ -91,7 +91,7 @@
                 });
 
                 $('#search-button').click(function () {
-                    if ($(this).val().length == 0) {
+                    if ($('#search-box').val().length == 0) {
                         $('#main').show();
                         $('#search-results ul li').remove();
                         return;

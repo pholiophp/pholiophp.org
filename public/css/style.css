@@ -176,6 +176,110 @@ a:hover {
     margin-left: 10px;
 }
 
+/**
+ * Library Page Styles
+ */
+.library-single {
+    padding: 30px 0 35px;
+}
+
+/** Sdebar Styles **/
+.library-single .sidebar {
+    padding: 15px;
+    border-radius: 0;
+    background: #F9F9F9;
+    border: 1px solid #ECEDEE;
+}
+.library-single .sidebar hr {
+    border-color: #ECEDEE;
+    background: #ECEDEE;
+}
+.library-single .sidebar .maintainers {
+    text-align: center;
+}
+.library-single .sidebar .canonical {
+    text-align: center;
+}
+.library-single .sidebar .heading {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: lowercase;
+    margin: 0 0 15px;
+}
+.library-single .sidebar .meta-data {
+    display: block;
+    text-align: center;
+}
+.library-single .sidebar .meta-data span {
+    display: inline-block;
+    width: 30%;
+}
+.library-single .sidebar .meta-data span a {
+    font-size: 16px;
+}
+.library-single .sidebar .meta-data span a i {
+    margin-right: 10px;
+}
+.library-single .sidebar .panel-group {
+    margin: 0 0 5px;
+}
+.library-single .sidebar .panel-group .panel {
+    box-shadow: none;
+}
+.library-single .sidebar .panel-group .panel-heading {
+    margin: 0;
+    padding: 0;
+}
+.library-single .sidebar .panel-group .panel-heading a {
+    background: #6CF;
+    color: #FFF;
+    border-radius: 4px;
+    border: 2px solid #FFF;
+    text-transform: lowercase;
+    font-weight: 700;
+    font-size: 14px;
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+}
+.library-single .sidebar .panel-group .panel-heading a:hover {
+    color: #FFF;
+}
+
+/** Primary Content Styles **/
+.library-single .primary .accordion {
+    padding:  0 20px 20px;
+    margin: 0;
+    background: #F9F9F9;
+}
+.library-single .primary .accordion .accordion-heading a {
+    text-decoration: none !important;
+}
+.library-single .primary .accordion .accordion-heading h2,
+.library-single .primary .accordion .accordion-heading h3 {
+    margin: auto -20px 20px;
+    padding: 20px;
+    font-size: 24px;
+    background: #ECEDEE;
+    transition: all .3s;
+}
+.library-single .primary .accordion .accordion-heading h2:hover,
+.library-single .primary .accordion .accordion-heading h3:hover {
+    background: #CBCBCB;
+}
+.library-single .primary .accordion .accordion {
+    background: #FFF;
+    margin: 0;
+    padding: 0 20px 20px;
+}
+.library-single .primary .accordion .accordion > h3 {
+    padding: 20px 0 0;
+}
+.library-single .primary .accordion .accordion > code {
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
 /*!
  * IE10 viewport hack for Surface/desktop Windows 8 bug
  * Copyright 2014-2015 Twitter, Inc.
