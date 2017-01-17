@@ -1,25 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container content">
-    <div class="row">
-        <div class="col-md-3">
-            <p class="maintainers"><a href="/{{ owner|e }}"><img width="48" height="48" title="{{ owner }}" src="{{ avatar }}"></a></p>
-            <p class="canonical"><a href="{{ source }}" title="Canonical Repository URL">View on Github</a></p>
-
-            <p><span><a title="stars" href="{{ source }}/stargazers"><i class="fa fa-star-o"></i>&nbsp;{{ stars }}</a></span>
-            <span><a title="watchers" href="{{ source }}/watchers"><i class="fa fa-eye"></i>&nbsp;{{ watchers }}</a></span>
-            <span><a title="forks" href="{{ source }}/network"><i class="fa fa-code-fork"></i>&nbsp;{{ forks }}</a></span></p>
-
-            <hr />
-            {% for tag in tags %}
-                <p><span><a href="/{{ owner|e }}/{{ package|e }}/{{ tag|e }}">{{ tag }}</a></span></p>
-            {% endfor %}
-
-            <hr />
-            {{ menu|raw }}
+    <div class="library-single row">
+        <div class="col-md-4">
+            <div class="sidebar">
+                <p class="maintainers">
+                    <a href="/{{ owner|e }}">
+                        <img width="48" height="48" title="{{ owner }}" src="{{ avatar }}">
+                    </a>
+                </p>
+                <p class="canonical">
+                    <a href="{{ source }}" title="Canonical Repository URL">
+                        View on Github
+                    </a>
+                </p>
+                <hr>
+                <p class="meta-data">
+                    <span>
+                        <a title="stars" href="{{ source }}/stargazers">
+                            <i class="fa fa-star-o"></i>{{ stars }}
+                        </a>
+                    </span>
+                    <span>
+                        <a title="watchers" href="{{ source }}/watchers">
+                            <i class="fa fa-eye"></i>{{ watchers }}
+                        </a>
+                    </span>
+                    <span>
+                        <a title="forks" href="{{ source }}/network">
+                            <i class="fa fa-code-fork"></i>{{ forks }}
+                        </a>
+                    </span>
+                </p>
+                <hr/>
+                <h3 class="heading">
+                    Tagged Releases
+                </h3>
+                <ul class="releases">
+                    {% for tag in tags %}
+                        <li>
+                            <a href="/{{ owner|e }}/{{ package|e }}/{{ tag|e }}">
+                                {{ tag }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr/>
+                {{ menu|raw }}
+            </div>
         </div>
-        <div class="col-md-9">
-            {{ phpdoc|raw }}
+        <div class="col-md-8">
+            <div class="primary">
+                {{ phpdoc|raw }}
+            </div>
         </div>
     </div>
 </div>
