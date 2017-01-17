@@ -9,90 +9,11 @@ body {
   margin-bottom: 60px;
   font-family: 'Overpass', sans-serif;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #272b30;
+a {
+    color: #6CF;
 }
-
-
-ul.libraries {
-    margin-top: 20px;
-}
-
-ul.libraries h1 {
-  font-family: Verdana;
-  font-size: 22px;
-  line-height: 1em;
-  font-weight: normal;
-  margin: 0;
-  padding: 8px 4px 0 0;
-  height: 32px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-ul.libraries .metadata {
-  font-size: 15px;
-}
-ul.libraries .metadata {
-  top: 3px;
-  margin: 0 1px;
-  font-size: 18px;
-}
-ul.libraries .metadata-block {
-  display: block;
-}
-ul.libraries .metadata-block:last-child {
-  margin-bottom: 0;
-}
-
-.libraries-short ul {
-    list-style: none;
-    margin: 0;
-}
-
-.libraries-short li {
-    margin-bottom: 12px;
-    font-style: italic;
-    font-weight: 400;
-}
-
-.libraries-short li a {
-    display: block;
-    font-style: normal;
-}
-
-.libraries-short li a strong {
-    margin-left: 5px;
-    font-size: 14px;
-}
-
-.libraries .library-item {
-    padding: 5px 15px;
-    margin-bottom: 10px;
-    background: #697075;
-    border-radius: 4px;
-}
-
-.libraries .selected .library-item {
-    padding: 4px 14px;
-    border: 1px solid #F28D1A;
-}
-
-.libraries .library-item h4 {
-    font-size: 20px;
-    margin-bottom: 0;
-}
-
-.libraries .library-item h4 small {
-    margin-left: 5px;
-    color: #83C129;
-    font-size: 16px;
+a:hover {
+    color: #6699CC;
 }
 
 /**
@@ -183,9 +104,52 @@ ul.libraries .metadata-block:last-child {
 }
 
 /**
+ * Library List Styles
+ */
+.search-results {
+    padding: 0 0 15px;
+}
+
+.search-results .libraries {
+    margin: 0;
+}
+.search-results .library {
+    border-bottom: 1px solid #ECEDEE;
+    padding: 20px 0;
+}
+.search-results .library:nth-child(even) {
+    background: #F9F9F9;
+}
+.search-results .library:last-child {
+    border-bottom: 0;
+}
+.search-results .library .meta-data {
+    display: block;
+    text-align: right;
+}
+.search-results .library .meta-data .block {
+    display: inline-block;
+    clear: both;
+    line-height: 30px;
+}
+.search-results .library .meta-data .block i {
+    position: relative;
+    top: -1px;
+}
+.search-results .library .meta-data .block i,
+.search-results .library .meta-data .block .count {
+    display: inline-block;
+    min-width: 25px;
+    text-align: center;
+}
+
+/**
  * Footer Styles
  */
 .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     background: #1b1b1b;
     height: auto;
     padding: 20px 0;

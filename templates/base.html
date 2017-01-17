@@ -6,10 +6,9 @@
         <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,700" rel="stylesheet">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-        <!-- bootstrap theme -->
-        <!--<link href="https://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet" />-->
         <!-- jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <!-- Bootstrap JS -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Custom styles for this template -->
         <link href="/css/style.css" rel="stylesheet">
@@ -54,7 +53,7 @@
             {% block content %}{% endblock %}
         </section>
 
-        <section id="search-results" class="container content">
+        <section id="search-results" class="search-results">
             <ul class="libraries list-unstyled">
             </ul>
         </section>
@@ -91,7 +90,7 @@
                     insertSearch();
                 });
 
-                $('#search-button').onclick(function () {
+                $('#search-button').click(function () {
                     if ($(this).val().length == 0) {
                         $('#main').show();
                         $('#search-results ul li').remove();
@@ -122,21 +121,32 @@
                             var watchers    = data.libraries[i].watchers;
                             var description = data.libraries[i].description;
                             var li =
-                                '<li class="row">' +
-                                '<div class="col-xs-12">' +
-                                '<div class="row">' +
-                                '<div class="col-sm-9 col-lg-10">' +
-                                '<h4><a href="/' + owner + '/' + package + '">' + owner + '/' + package + '</a></h4>' +
-                                '<p>' + description + '</p>' +
-                                '</div>' +
-                                '<div class="col-sm-3 col-lg-2">' +
-                                '<p>' +
-                                '<span class="metadata-block"><i class="fa fa-star-o fa-lg"></i>&nbsp;' + stars + '</span>' +
-                                '<span class="metadata-block"><i class="fa fa-eye fa-lg"></i>&nbsp;' + watchers + '</span>' +
-                                '</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
+                                '<li class="library">' +
+                                    '<div class="container">' +
+                                        '<div class="row">' +
+                                            '<div class="col-sm-9 col-lg-10">' +
+                                                '<h4><a href="/' + owner + '/' + package + '">' + owner + '/' + package + '</a></h4>' +
+                                                '<p>' + description + '</p>' +
+                                            '</div>' +
+                                            '<div class="col-sm-3 col-lg-2">' +
+                                                '<div class="meta-data">' +
+                                                    '<div class="block">' +
+                                                        '<i class="fa fa-star-o fa-lg"></i>' +
+                                                        '<div class="count">' +
+                                                            stars +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                    '<br>' +
+                                                    '<div class="block">' +
+                                                        '<i class="fa fa-eye fa-lg"></i>' +
+                                                        '<div class="count">' +
+                                                            watchers +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
                                 '</li>';
                             $('#search-results ul').append(li);
                         }
