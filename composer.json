@@ -31,5 +31,8 @@
     },
     "autoload-dev": {
         "psr-4":{"Pholio\\" : "tests"}
+    },
+    "require-dev": {
+        "chadicus/coding-standard": "^1.2"
     }
 }
