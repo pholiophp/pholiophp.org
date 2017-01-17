@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pholiophp/pholiophp.org.svg?branch=master)](https://travis-ci.org/pholiophp/pholiophp.org)
+
 # pholiophp.org
 The Pholio Website
 
