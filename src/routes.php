@@ -90,15 +90,19 @@ $app->post('/search', function ($request, $response, $arguments) {
         $keywords = trim($keywords);
 
         if (trim($keywords) != '') {
-            $ors = [];
+            $ands = [];
             foreach (explode(' ', $keywords) as $keyword) {
-                $ors[] = ['keywords' => ['$regex' => "^{$keyword}"]];
-                $ors[] = ['owner' => ['$regex' => "^{$keyword}"]];
-                $ors[] = ['package' => ['$regex' => "^{$keyword}"]];
+                $ands[] = [
+                    '$or' => [
+                        ['keywords' => ['$regex' => "^{$keyword}"]],
+                        ['owner' => ['$regex' => "^{$keyword}"]],
+                        ['package' => ['$regex' => "^{$keyword}"]],
+                    ]
+                ];
             }
 
             $libraries = $this->mongodb->selectCollection('libraries')->find(
-                ['$or' => $ors],
+                ['$and' => $ands],
                 [
                     'projection' => [
                         'owner' => true,
