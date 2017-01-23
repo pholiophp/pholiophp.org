@@ -42,6 +42,7 @@ $app->get('/', function ($request, $response) {
                         'count' => $count,
                         'keywords' => array_slice($keywords, 0, 10, true),
                         'owners' => array_slice($owners, 0, 10, true),
+                        'query' => Util\Arrays::get($request->getQueryParams(), 'q'),
                     ]
                 );
 });
@@ -51,14 +52,10 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
     $library  = Util\Arrays::get($arguments, 'repos');
     $version  = Util\Arrays::get($arguments, 'version', 'dev-master');
     $id       = "{$owner}-{$library}";
-    $document = Util::ensureNot(
-        null,
-        $this->mongodb
-             ->selectCollection('libraries')
-             ->findOne(['_id' => $id]),
-        'http',
-        ["Repository {$owner}/{$library} not found", 404]
-    );
+    $document = $this->mongodb->selectCollection('libraries')->findOne(['_id' => $id]);
+    if ($document === null) {
+        return $response->withRedirect("/{$owner}");
+    }
 
     $xmlDoc = new \DOMDocument();
     $xmlDoc->loadXml($document[$version]);
