@@ -52,9 +52,10 @@ a:hover {
 .default-section {
     background: #ECEDEE;
     border: 1px solid #CCCCCC;
-    margin: 60px 0;
+    margin: 60px auto;
     padding: 20px;
     border-radius: 4px;
+    max-width: 90%;
 }
 .default-section h3 {
     font-size: 32px;
@@ -80,7 +81,8 @@ a:hover {
 .owner:last-child {
     margin: 0;
 }
-.keyword .count {
+.keyword .count,
+.owner .count {
     float: right;
 }
 
