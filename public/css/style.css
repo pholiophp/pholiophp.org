@@ -255,6 +255,13 @@ a:hover {
     background: #F9F9F9;
     border: 1px solid #ECEDEE;
 }
+.library-single .sidebar.fixed {
+    position: fixed;
+    top: 0;
+    border-radius: 0;
+    height: 100%;
+    overflow: auto;
+}
 .library-single .sidebar hr {
     border-color: #ECEDEE;
     background: #ECEDEE;
@@ -305,6 +312,9 @@ a:hover {
     font-size: 14px;
     display: block;
     padding: 10px 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     text-decoration: none;
 }
 .library-single .sidebar .panel-group .panel-heading a:hover {
