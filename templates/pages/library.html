@@ -3,7 +3,7 @@
 <div class="container content">
     <div class="library-single row">
         <div class="col-md-4">
-            <div class="sidebar">
+            <div class="sidebar" data-state="0">
                 <p class="maintainers">
                     <a href="/{{ owner|e }}">
                         <img width="48" height="48" title="{{ owner }}" src="{{ avatar }}">
@@ -56,4 +56,31 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).scroll(function () {
+            var offset  = $(this).scrollTop(),
+                sidebar = $('.sidebar'),
+                lock    = sidebar.attr('data-state'),
+                sbWidth = sidebar.outerWidth();
+
+            if (offset < 216 && lock == 1) {
+                sidebar.css({
+                    'width': 'auto'
+                });
+                sidebar.removeClass('fixed');
+                sidebar.attr('data-state', 0);
+            }
+
+            if (offset > 216 && lock == 0) {
+                sidebar.css({
+                    'width': sbWidth + 'px'
+                });
+                sidebar.addClass('fixed');
+                sidebar.attr('data-state', 1);
+            }
+        });
+    });
+</script>
 {% endblock %}

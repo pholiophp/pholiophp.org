@@ -47,6 +47,46 @@ a:hover {
 }
 
 /**
+ * Default View On Homepage Styles
+ */
+.default-section {
+    background: #ECEDEE;
+    border: 1px solid #CCCCCC;
+    margin: 60px auto;
+    padding: 20px;
+    border-radius: 4px;
+    max-width: 90%;
+}
+.default-section h3 {
+    font-size: 32px;
+    font-weight: 400;
+    text-align: left;
+    color: #000;
+    margin: 0 0 20px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid #CCCCCC;
+    text-transform: lowercase;
+}
+.keyword,
+.owner{
+    display: block;
+    margin: 0 0 20px;
+    font-size: 22px;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1;
+    transition: all .3s;
+}
+.keyword:last-child,
+.owner:last-child {
+    margin: 0;
+}
+.keyword .count,
+.owner .count {
+    float: right;
+}
+
+/**
  * Index Search Styles
  */
 .omnisearch {
@@ -215,6 +255,13 @@ a:hover {
     background: #F9F9F9;
     border: 1px solid #ECEDEE;
 }
+.library-single .sidebar.fixed {
+    position: fixed;
+    top: 0;
+    border-radius: 0;
+    height: 100%;
+    overflow: auto;
+}
 .library-single .sidebar hr {
     border-color: #ECEDEE;
     background: #ECEDEE;
@@ -265,6 +312,9 @@ a:hover {
     font-size: 14px;
     display: block;
     padding: 10px 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     text-decoration: none;
 }
 .library-single .sidebar .panel-group .panel-heading a:hover {
