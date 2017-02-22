@@ -15,6 +15,19 @@ a {
 a:hover {
     color: #6699CC;
 }
+code {
+    display: inline-block !important;
+    margin: 0 0 6px !important;
+}
+
+table code {
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+}
+
+table.table-bordered td:nth-child(2) {
+    max-width: 190px;
+}
 
 /**
  * Fork Sticker Styles
