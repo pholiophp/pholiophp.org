@@ -16,6 +16,9 @@
             ]
         }
     },
+    "config": {
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.0",
         "ext-xsl": "*",
