@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5b95f185bffc1216c1e654246fde0ae",
+    "content-hash": "409133277f201ad40f999dbb803db7bd",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -39,24 +39,24 @@
         },
         {
             "name": "dominionenterprises/filter",
-            "version": "v2.2.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/traderinteractive/filter-php.git",
-                "reference": "1e30f7595100224440d986d357c36abb6f0acfdb"
+                "reference": "88745a8385b0293460a8d0fc8db8a51e5a7d3b31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/traderinteractive/filter-php/zipball/1e30f7595100224440d986d357c36abb6f0acfdb",
-                "reference": "1e30f7595100224440d986d357c36abb6f0acfdb",
+                "url": "https://api.github.com/repos/traderinteractive/filter-php/zipball/88745a8385b0293460a8d0fc8db8a51e5a7d3b31",
+                "reference": "88745a8385b0293460a8d0fc8db8a51e5a7d3b31",
                 "shasum": ""
             },
             "require": {
                 "php": "~5.6 || ~7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.5",
-                "satooshi/php-coveralls": "~1.0",
+                "phpunit/phpunit": "~5.0",
+                "satooshi/php-coveralls": "~0.6.1",
                 "squizlabs/php_codesniffer": "~2.0"
             },
             "suggest": {
@@ -87,11 +87,6 @@
                     "name": "Chad Gray",
                     "email": "chadwickgray@gmail.com",
                     "role": "Developer"
-                },
-                {
-                    "name": "Chris Ryan",
-                    "email": "xgbe@yahoo.com",
-                    "role": "Developer"
                 }
             ],
             "description": "A filtering implementation for verifying correct data and performing typical modifications to data",
@@ -99,7 +94,7 @@
                 "utility"
             ],
             "abandoned": "traderinteractive/filter",
-            "time": "2018-02-12T19:50:38+00:00"
+            "time": "2016-08-23T00:40:18+00:00"
         },
         {
             "name": "dominionenterprises/util",
@@ -450,24 +445,21 @@
         },
         {
             "name": "mongodb/mongodb",
-            "version": "1.1.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5"
+                "reference": "302de20d8302183e1c70b335d81798cec5bcebd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/a307dd60e71e1291c60927ea4f3a1905146063f5",
-                "reference": "a307dd60e71e1291c60927ea4f3a1905146063f5",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/302de20d8302183e1c70b335d81798cec5bcebd4",
+                "reference": "302de20d8302183e1c70b335d81798cec5bcebd4",
                 "shasum": ""
             },
             "require": {
-                "ext-mongodb": "^1.2.0",
+                "ext-mongodb": "^1.1.0",
                 "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8"
             },
             "type": "library",
             "autoload": {
@@ -504,7 +496,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "time": "2017-02-16T18:40:32+00:00"
+            "time": "2016-12-05T20:02:14+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -703,24 +695,23 @@
         },
         {
             "name": "slim/slim",
-            "version": "3.9.2",
+            "version": "3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slimphp/Slim.git",
-                "reference": "4086d0106cf5a7135c69fce4161fe355a8feb118"
+                "reference": "4254e40d81559e35cdf856bcbaca5f3af468b7ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Slim/zipball/4086d0106cf5a7135c69fce4161fe355a8feb118",
-                "reference": "4086d0106cf5a7135c69fce4161fe355a8feb118",
+                "url": "https://api.github.com/repos/slimphp/Slim/zipball/4254e40d81559e35cdf856bcbaca5f3af468b7ef",
+                "reference": "4254e40d81559e35cdf856bcbaca5f3af468b7ef",
                 "shasum": ""
             },
             "require": {
-                "container-interop/container-interop": "^1.2",
+                "container-interop/container-interop": "^1.1",
                 "nikic/fast-route": "^1.0",
                 "php": ">=5.5.0",
                 "pimple/pimple": "^3.0",
-                "psr/container": "^1.0",
                 "psr/http-message": "^1.0"
             },
             "provide": {
@@ -770,20 +761,20 @@
                 "micro",
                 "router"
             ],
-            "time": "2017-11-26T19:13:09+00:00"
+            "time": "2016-12-20T20:30:47+00:00"
         },
         {
             "name": "slim/twig-view",
-            "version": "2.3.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slimphp/Twig-View.git",
-                "reference": "f6ff5ec3a24e11866376b8ffa235fbbb7e1d1301"
+                "reference": "a743ac45e2a089942159dda499c5ef5bc5f6bfa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Twig-View/zipball/f6ff5ec3a24e11866376b8ffa235fbbb7e1d1301",
-                "reference": "f6ff5ec3a24e11866376b8ffa235fbbb7e1d1301",
+                "url": "https://api.github.com/repos/slimphp/Twig-View/zipball/a743ac45e2a089942159dda499c5ef5bc5f6bfa6",
+                "reference": "a743ac45e2a089942159dda499c5ef5bc5f6bfa6",
                 "shasum": ""
             },
             "require": {
@@ -820,7 +811,7 @@
                 "twig",
                 "view"
             ],
-            "time": "2017-09-20T19:47:37+00:00"
+            "time": "2017-01-25T20:38:39+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -946,58 +937,6 @@
                 "templating"
             ],
             "time": "2018-03-20T04:31:17+00:00"
-        },
-        {
-            "name": "zendframework/zend-diactoros",
-            "version": "1.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "bf26aff803a11c5cc8eb7c4878a702c403ec67f1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/bf26aff803a11c5cc8eb7c4878a702c403ec67f1",
-                "reference": "bf26aff803a11c5cc8eb7c4878a702c403ec67f1",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0",
-                "psr/http-message": "^1.0"
-            },
-            "provide": {
-                "psr/http-message-implementation": "1.0"
-            },
-            "require-dev": {
-                "ext-dom": "*",
-                "ext-libxml": "*",
-                "phpunit/phpunit": "^5.7.16 || ^6.0.8",
-                "zendframework/zend-coding-standard": "~1.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.7.x-dev",
-                    "dev-develop": "1.8.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Zend\\Diactoros\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "PSR HTTP Message implementations",
-            "homepage": "https://github.com/zendframework/zend-diactoros",
-            "keywords": [
-                "http",
-                "psr",
-                "psr-7"
-            ],
-            "time": "2018-02-26T15:44:50+00:00"
         }
     ],
     "packages-dev": [
