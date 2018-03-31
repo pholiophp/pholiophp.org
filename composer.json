@@ -7,15 +7,6 @@
         }
     ],
     "license": "MIT",
-    "extra": {
-        "heroku": {
-            "newrelic": true,
-            "php-config": [
-                "date.timezone=America/New_York",
-                "always_populate_raw_post_data=-1"
-            ]
-        }
-    },
     "config": {
         "sort-packages": true
     },
