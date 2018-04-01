@@ -123,13 +123,10 @@ $app->post('/search', function ($request, $response, $arguments) {
         $result = ['libraries' => []];
     }
 
-    $stream = fopen('php://temp', 'r+');
-    fwrite($stream, json_encode($result));
-    rewind($stream);
+    $response->getBody()->rewind();
+    $response->getBody()->write(json_encode($result));
 
-    return $response->withStatus(200)->withHeader('Content-Type', 'application/json')->withBody(
-        new Zend\Diactoros\Stream($stream)
-    );
+    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
 $app->get('/{username}', function ($request, $response, $arguments) {
