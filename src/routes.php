@@ -5,51 +5,36 @@ use DominionEnterprises\Util;
 $app->get('/', function ($request, $response) {
     $count = $this->mongodb->selectCollection('libraries')->count([]);
 
-    $libraries = $this->mongodb->selectCollection('libraries')->find(
+    $keywords = $this->mongodb->selectCollection('keywords')->find(
         [],
-        ['projection' => ['keywords' => true, 'owner' => true]]
+        [
+            'projection' => ['count' => true, '_id' => true],
+            'sort' => ['count' => -1],
+            'limit' => 10,
+        ]
+    )->toArray();
+
+    $owners = $this->mongodb->selectCollection('owners')->find(
+        [],
+        [
+            'projection' => ['count' => true, '_id' => true],
+            'sort' => ['count' => -1],
+            'limit' => 10,
+        ]
+    )->toArray();
+
+    return $this->renderer->render(
+        $response,
+        'pages/index.html',
+        [
+            'title'    => 'Pholio - The PHP Document Archive',
+            'is_front' => true,
+            'count' => $count,
+            'keywords' => array_combine(array_column($keywords, '_id'), array_column($keywords, 'count')),
+            'owners' => array_combine(array_column($owners, '_id'), array_column($owners, 'count')),
+            'query' => Util\Arrays::get($request->getQueryParams(), 'q'),
+        ]
     );
-    $keywords = [];
-    $owners = [];
-    foreach ($libraries as $library) {
-        $owner = $library['owner'];
-
-        if (!array_key_exists($owner, $owners)) {
-            $owners[$owner] = 0;
-        }
-
-        $owners[$owner]++;
-
-        $rawKeywords = $library['keywords'];
-        if ($rawKeywords === null) {
-            $rawKeywords = [];
-        }
-
-        foreach ($rawKeywords as $keyword) {
-            if (!array_key_exists($keyword, $keywords)) {
-                $keywords[$keyword] = 0;
-            }
-
-            $keywords[$keyword]++;
-        }
-    }
-
-    arsort($keywords);
-    arsort($owners);
-
-    return $this->renderer
-                ->render(
-                    $response,
-                    'pages/index.html',
-                    [
-                        'title'    => 'Pholio - The PHP Document Archive',
-                        'is_front' => true,
-                        'count' => $count,
-                        'keywords' => array_slice($keywords, 0, 10, true),
-                        'owners' => array_slice($owners, 0, 10, true),
-                        'query' => Util\Arrays::get($request->getQueryParams(), 'q'),
-                    ]
-                );
 });
 
 $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arguments) {
