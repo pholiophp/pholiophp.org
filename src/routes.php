@@ -20,7 +20,12 @@ $app->get('/', function ($request, $response) {
 
         $owners[$owner]++;
 
-        foreach ($library['keywords'] as $keyword) {
+        $rawKeywords = $library['keywords'];
+        if ($rawKeywords === null) {
+            $rawKeywords = [];
+        }
+
+        foreach ($rawKeywords as $keyword) {
             if (!array_key_exists($keyword, $keywords)) {
                 $keywords[$keyword] = 0;
             }
