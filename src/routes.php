@@ -2,40 +2,7 @@
 
 use DominionEnterprises\Util;
 
-$app->get('/', function ($request, $response) {
-    $count = $this->mongodb->selectCollection('libraries')->count([]);
-
-    $keywords = $this->mongodb->selectCollection('keywords')->find(
-        [],
-        [
-            'projection' => ['count' => true, '_id' => true],
-            'sort' => ['count' => -1],
-            'limit' => 10,
-        ]
-    )->toArray();
-
-    $owners = $this->mongodb->selectCollection('owners')->find(
-        [],
-        [
-            'projection' => ['count' => true, '_id' => true],
-            'sort' => ['count' => -1],
-            'limit' => 10,
-        ]
-    )->toArray();
-
-    return $this->renderer->render(
-        $response,
-        'pages/index.html',
-        [
-            'title'    => 'Pholio - The PHP Document Archive',
-            'is_front' => true,
-            'count' => $count,
-            'keywords' => array_combine(array_column($keywords, '_id'), array_column($keywords, 'count')),
-            'owners' => array_combine(array_column($owners, '_id'), array_column($owners, 'count')),
-            'query' => Util\Arrays::get($request->getQueryParams(), 'q'),
-        ]
-    );
-});
+$app->get('/', 'Pholio\\Controllers\\HomeController:index');
 
 $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arguments) {
     $owner    = Util\Arrays::get($arguments, 'username');

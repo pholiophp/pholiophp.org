@@ -1,4 +1,7 @@
 <?php
+
+use Pholio\Controllers\HomeController;
+
 // DIC configuration
 $container = $app->getContainer();
 
@@ -20,4 +23,11 @@ $container['xsltProcessor'] = function ($c) {
     $xsltProcessor->registerPHPFunctions();
     $xsltProcessor->importStyleSheet($document);
     return $xsltProcessor;
+};
+
+$container[HomeController::class] = function ($c) {
+    return new HomeController(
+        $c->get('renderer'),
+        $c->get('mongodb')->selectCollection('libraries')
+    );
 };
