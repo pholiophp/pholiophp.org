@@ -1,6 +1,7 @@
 <?php
 
 use Pholio\Controllers\HomeController;
+use Pholio\Controllers\SearchController;
 
 // DIC configuration
 $container = $app->getContainer();
@@ -28,6 +29,12 @@ $container['xsltProcessor'] = function ($c) {
 $container[HomeController::class] = function ($c) {
     return new HomeController(
         $c->get('renderer'),
+        $c->get('mongodb')->selectCollection('libraries')
+    );
+};
+
+$container[SearchController::class] = function ($c) {
+    return new SearchController(
         $c->get('mongodb')->selectCollection('libraries')
     );
 };

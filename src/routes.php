@@ -3,6 +3,7 @@
 use DominionEnterprises\Util;
 
 $app->get('/', 'Pholio\\Controllers\\HomeController:index');
+$app->post('/search', 'Pholio\\Controllers\\SearchController:post');
 
 $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arguments) {
     $owner    = Util\Arrays::get($arguments, 'username');
@@ -31,54 +32,6 @@ $app->get('/{username}/{repos}[/{version}]', function ($request, $response, $arg
             'phpdoc' => $this->xsltProcessor->transformToXML($xmlDoc),
         ]
     );
-});
-
-$app->post('/search', function ($request, $response, $arguments) {
-    $result = ['libraries' => []];
-    try {
-        $keywords = Util\Arrays::get($request->getParsedBody(), 'keywords');
-        $keywords = preg_replace("/[^A-Za-z0-9 ]/", '', $keywords); //remove non-alphanumeric
-        $keywords = strtolower($keywords);
-        $keywords = preg_replace('/[^\x20-\x7E]/', ' ', $keywords); // remove non ASCII
-        $keywords = preg_replace('/\s+/', ' ', $keywords); // remove superfluous whitespace
-        $keywords = trim($keywords);
-
-        if (trim($keywords) != '') {
-            $ands = [];
-            foreach (explode(' ', $keywords) as $keyword) {
-                $ands[] = [
-                    '$or' => [
-                        ['keywords' => ['$regex' => "^{$keyword}"]],
-                        ['owner' => ['$regex' => "^{$keyword}"]],
-                        ['package' => ['$regex' => "^{$keyword}"]],
-                    ]
-                ];
-            }
-
-            $libraries = $this->mongodb->selectCollection('libraries')->find(
-                ['$and' => $ands],
-                [
-                    'projection' => [
-                        'owner' => true,
-                        'package' => true,
-                        'description' => true,
-                        'stars' => true,
-                        'watchers' => true,
-                    ],
-                    'sort' => ['owner' => 1, 'package' => 1, 'keywords' => 1],
-                ]
-            )->toArray();
-
-            $result = ['libraries' => $libraries];
-        }
-    } catch (Throwable $e) {
-        $result = ['libraries' => []];
-    }
-
-    $response->getBody()->rewind();
-    $response->getBody()->write(json_encode($result));
-
-    return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 });
 
 $app->get('/{username}', function ($request, $response, $arguments) {
