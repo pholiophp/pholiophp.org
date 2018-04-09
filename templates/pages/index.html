@@ -1,3 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="keywords default-section">
+                    <h3>Libraries by keyword</h3>
+                    {% for keyword, count in keywords %}
+                        <a class="search keyword" href="#" data-value="{{ keyword }}">
+                            {{ keyword }} <span class="count">({{ count }})</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="organizations default-section">
+                    <h3>Libraries by organization</h3>
+                    {% for owner, count in owners %}
+                        <a class="owner" href="{{ owner }}">
+                            {{ owner }} <span class="count">({{ count }})</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

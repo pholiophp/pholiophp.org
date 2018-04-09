@@ -49,12 +49,50 @@ final class HomeController
         return $this->view->render(
             $response,
             'pages/index.html',
-            [
+            $this->getCounts() + [
                 'title'    => 'Pholio - The PHP Document Archive',
                 'is_front' => true,
                 'count' => $this->collection->count([]),
                 'query' => Arrays::get($request->getQueryParams(), 'q'),
             ]
         );
+    }
+
+    private function getCounts() : array
+    {
+        $libraries = $this->collection->find(
+            [],
+            ['projection' => ['keywords' => true, 'owner' => true]]
+        );
+
+        $keywords = [];
+        $owners = [];
+        foreach ($libraries as $library) {
+            $owner = $library['owner'];
+            if (!array_key_exists($owner, $owners)) {
+                $owners[$owner] = 0;
+            }
+
+            $owners[$owner]++;
+            $rawKeywords = $library['keywords'];
+            if ($rawKeywords === null) {
+                $rawKeywords = [];
+            }
+
+            foreach ($rawKeywords as $keyword) {
+                if (!array_key_exists($keyword, $keywords)) {
+                    $keywords[$keyword] = 0;
+                }
+
+                $keywords[$keyword]++;
+            }
+        }
+        arsort($keywords);
+        arsort($owners);
+
+        return [
+            'keywords' => $keywords,
+            'owners' => $owners,
+        ];
     }
 }

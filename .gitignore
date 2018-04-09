@@ -1,3 +1,4 @@
 /vendor/
 settings.php
 phpcs.xml
+phpunit.xml
