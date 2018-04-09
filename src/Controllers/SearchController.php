@@ -9,6 +9,9 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Views\Twig;
 use Throwable;
 
+/**
+ * Controller to handle requests to /search.
+ */
 final class SearchController
 {
     /**
@@ -16,6 +19,11 @@ final class SearchController
      */
     private $collection;
 
+    /**
+     * Constructs a new instance of SearchController.
+     *
+     * @param Collection $collection Mongo collection containing library information.
+     */
     public function __construct(Collection $collection)
     {
         $this->collection = $collection;

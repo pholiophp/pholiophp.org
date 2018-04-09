@@ -8,6 +8,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Views\Twig;
 
+/**
+ * Controller for requests to /.
+ */
 final class HomeController
 {
     /**
@@ -20,6 +23,12 @@ final class HomeController
      */
     private $collection;
 
+    /**
+     * Construct a new instance of HomeController.
+     *
+     * @param Twig       $view       A configured Twig templating instance.
+     * @param Collection $collection Mongo collection containing library information.
+     */
     public function __construct(Twig $view, Collection $collection)
     {
         $this->view = $view;
