@@ -26,6 +26,7 @@
         "psr-4":{"Pholio\\" : "tests"}
     },
     "require-dev": {
-        "chadicus/coding-standard": "^1.2"
+        "chadicus/coding-standard": "^1.2",
+        "phpunit/phpunit": "6.5.7"
     }
 }
